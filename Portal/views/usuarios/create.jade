@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+	h1 Cadastro de usuarios
+	br
+	form(method="POST", action="/usuarios/create", role="form")
+		div(class="form-group")
+			label(for="nome") Nome
+			input(type="text", class="form-control", id="nome", name="nome", placeholder="Digite seu nome", required)
+		div(class="form-group")
+			label(for="email") E-mail
+			input(type="email", class="form-control", id="email", name='email', placeholder="Digite seu email. Ex: youremail@email.com", required)
+		div(class="form-group")
+			label(for="senha") Senha
+			input(type="password", class="form-control", id="senha", name="senha", placeholder="Digite sua senha", required)
+		div(class="form-group")
+			label(for="confirma_senha") Confirmar Senha
+			input(type="password", class="form-control", id="confirma_senha" name="confirma_senha", placeholder="Digite a senha novamente", required)
+		button(type="submit" class="btn btn-success") Salvar

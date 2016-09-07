@@ -5,7 +5,18 @@ var express = require('express'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    session = require('express-session');
+    session = require('express-session'),
+    mongoose = require('mongoose');
+
+//conexão com o mongodb
+mongoose.connect('mongodb://localhost/portal', function (err) {
+    'use strict';
+    if (err) {
+        console.log("Erro ao conectar mongodb: " + err);
+    } else {
+        console.log('Mongodb Conectado');
+    }
+})
 
 var app = express();
 
@@ -19,9 +30,9 @@ app.set('view engine', 'jade');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
-app.use(session({secret: 'portal'}));
+app.use(session({secret: 'portal', resave: false, saveUninitialized: true}));
 app.use(express.static(path.join(__dirname, '/public')));
 
 load('models')
