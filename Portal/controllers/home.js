@@ -3,7 +3,7 @@ module.exports = function (app) {
     var HomeController = {
         index: function (req, res) {
         	var params = {title: 'Portal Share'};
-            res.render('index', params);
+            res.render('home/index', params);
         }
     };
     return HomeController;

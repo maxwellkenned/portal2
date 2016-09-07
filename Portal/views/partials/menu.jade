@@ -6,15 +6,18 @@ nav(class="navbar navbar-default navbar-fixed-top")
                 span(class="icon-bar")
                 span(class="icon-bar")
                 span(class="icon-bar")
-            a(class="navbar-brand", href="#") Portal Share
+            a(class="navbar-brand", href="/") Portal Share
         div(id="navbar" class="navbar-collapse collapse")
             ul(class="nav navbar-nav")
                 li(class="active")
-                    a(href="#") Home
+                    a(href="/") Home
                 li
-                    a(href="#about") Sobre
+                    a(href="/contatos") Contatos
                 li
-                    a(href="#contact") Contato
+                    a(href="/usuarios") Usuários
+                li
+                    a(href="/email") Entrar em contato
+            //
                 li(class="dropdown")
                     a(href="#", class="dropdown-toggle" ,data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") Dropdown 
                         span(class="caret")
@@ -31,11 +34,14 @@ nav(class="navbar navbar-default navbar-fixed-top")
                             a(href="#") Link separado
                         li
                             a(href="#") Mais um link separado
+            
             ul(class="nav navbar-nav navbar-right")
+                li(role="separator", class="divider divisor")
                 li
-                    a(href="../navbar") Padrão
-                li
-                    a(href="../navbar-static-top") Topo estático
-                li(class="active")
-                    a(href="./") Topo fixado
+                    a(href="/") Usuario logado(Sair)
+                //
+                    li
+                        a(href="../navbar-static-top") Topo estático
+                    li(class="active")
+                        a(href="./") Topo fixado
                         span(class="sr-only") (current)
