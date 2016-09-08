@@ -6,7 +6,8 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    flash = require('express-flash');
 
 //conexão com o mongodb
 mongoose.connect('mongodb://localhost/portal', function (err) {
@@ -34,6 +35,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(session({secret: 'portal', resave: false, saveUninitialized: true}));
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(flash());
 
 load('models')
     .then('controllers')
