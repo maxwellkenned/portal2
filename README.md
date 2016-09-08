@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Skeleton Express 4
 
 Estrutura básica para trabalhar com o framework express na sua versão 4.
@@ -18,3 +19,6 @@ Developer: Thiago Porto
 - [Site](http://www.waib.com.br)
 - [Blog](http://www.waib.com.br/blog)
 - [Canal](http://www.youtube.com/waibtecnologia)
+=======
+# portal share
+>>>>>>> 9875c0c51eedfaf1942876c36637491a69514046
