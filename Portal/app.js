@@ -52,7 +52,9 @@ load('models')
 app.use(erros.notfound);
 app.use(erros.serverError);
 
-app.listen(3000, function () {
-    'use strict';
-    console.log('Express server listening on port 3000');
+var env = process.env.PORT || 8080;
+
+app.listen(env, function () {
+    "use strict";
+    console.log("Portal no ar." + "\nPorta: " + env);
 });
