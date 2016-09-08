@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+    br
+    h1 #{dados.nome}
+    hr
+    p
+        b E-mail: #{dados.email}
+    p
+        b Site: #{dados.site}
+    p
+        b Data de Cadastro: #{moment(dados.data_cadastro).format('DD/MM/YYYY HH:mm:ss')}
+    br
+    form(method="POST", action="/usuarios/delete/#{dados._id}", role="form", id="excluir-form")
+        a(href="/usuarios", class="btn btn-primary") Voltar
+
+        button(type="submit", class="btn btn-danger margin-l") Excluir
+    br
+block script
+    script(type="text/javascript").
+        $(function(){
+            $('#excluir-form').submit(function(){
+                var pergunta = confirm('Você tem certeza que dejesa excluir este usuário?');
+                if(!pergunta){
+                    return false;
+                }
+            });
+        });
