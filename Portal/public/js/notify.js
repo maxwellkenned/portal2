@@ -131,7 +131,7 @@
     Message.defaults = {
         message: "",
         status: "default",
-        timeout: 5000,
+        timeout: 7000,
         pos: 'bottom-right',
         zIndex: 10400,
         onClose: function() {}

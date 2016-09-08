@@ -7,7 +7,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
     mongoose = require('mongoose'),
-    flash = require('express-flash');
+    flash = require('express-flash'),
+    moment = require('moment');
 
 //conexão com o mongodb
 mongoose.connect('mongodb://localhost/portal', function (err) {
@@ -36,6 +37,12 @@ app.use(cookieParser());
 app.use(session({secret: 'portal', resave: false, saveUninitialized: true}));
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(flash());
+
+//HELPERS
+app.use(function(req, res, next){
+    res.locals.moment= moment;
+    next();
+});
 
 load('models')
     .then('controllers')
