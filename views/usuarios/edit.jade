@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+    h1 Atualizar Usuário
+    hr
+    form(method="POST", action="/usuarios/edit/#{dados._id}", role="form")
+        div(class="form-group")
+            label(for="nome") Nome
+            input(type="text", class="form-control", id="nome", name="nome", placeholder="Infome o nome", required, autofocus, value="#{dados.nome}")
+        div(class="form-group")
+            label(for="site") Site
+            input(type="url", class="form-control", id="site", name="site", placeholder="Infome o site", required, value="#{dados.site}")
+        div(class="form-group")
+            label(for="site") E-mail
+            input(type="email", class="form-control", id="email", name="email", placeholder="Infome o E-mail", value="#{dados.email}", disabled)
+        button(type="submit" class="btn btn-success") Salvar
+block content
+    if messages.erro
+        each msg in messages.erro   
+            script.
+                $(document).ready(function(){
+                        $.notify('#{msg}', 'error');
+                    });

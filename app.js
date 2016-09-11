@@ -8,7 +8,8 @@ var express = require('express'),
     session = require('express-session'),
     mongoose = require('mongoose'),
     flash = require('express-flash'),
-    moment = require('moment');
+    moment = require('moment'),
+    expressValidator = require('express-validator');
 
 //conexão com o mongodb
 //mongoose.connect('mongodb://localhost/portal', function (err) {
@@ -34,6 +35,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(expressValidator());
 app.use(cookieParser());
 app.use(session({secret: 'portal', resave: false, saveUninitialized: true}));
 app.use(express.static(path.join(__dirname, '/public')));
@@ -41,6 +43,7 @@ app.use(flash());
 
 //HELPERS
 app.use(function(req, res, next){
+    'use strict';
     res.locals.moment= moment;
     next();
 });

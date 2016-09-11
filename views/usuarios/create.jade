@@ -3,21 +3,17 @@ extends ../layout
 block content
     h1 Cadastro de usuarios
     br
-    if messages.erro
-        div(class="alert alert-danger fade in")
-            a(href="#" class="close" data-dismiss="alert" aria-label="close") &times
-            p #{messages.erro}
-        br
+                
     form(method="POST", action="/usuarios/create", role="form")
         div(class="form-group")
             label(for="nome") Nome
-            input(type="text", class="form-control", id="nome", name="nome", placeholder="Digite seu nome", required)
+            input(type="text", class="form-control", id="nome", name="nome", placeholder="Digite seu nome", value="#{user.nome || ''}", required autofocus)
         div(class="form-group")
             label(for="email") E-mail
-            input(type="email", class="form-control", id="email", name='email', placeholder="Digite seu email. Ex: youremail@email.com", required)
+            input(type="email", class="form-control", id="email", name='email', placeholder="Digite seu email. Ex: youremail@email.com", value="#{user.email || ''}", required)
         div(class="form-group")
             label(for="site") Site
-            input(type="text", class="form-control", id="site", name="site", placeholder="Digite seu site", value="http://")
+            input(type="url", class="form-control", id="site", name="site", placeholder="Digite seu site", value="#{user.site || 'http://'}", required)
         div(class="form-group")
             label(for="senha") Senha
             input(type="password", class="form-control", id="senha", name="senha", placeholder="Digite sua senha", required)
@@ -28,8 +24,9 @@ block content
 block script
     // pop up de mensagem
     if messages.erro
-        script.
-            $(document).ready(function(){
-                $('.alert').hide();
-                $.notify('#{messages.erro}', 'erro');
-            });
+        each msg in messages.erro   
+            script.
+                $(document).ready(function(){
+                   // $('.alert').hide();
+                        $.notify('#{msg}', 'error');
+                    });
