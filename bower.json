@@ -1,0 +1,18 @@
+{
+  "name": "portal",
+  "description": "Portal Share",
+  "main": "",
+  "authors": [
+    "Maxwell Kenned <kenned123@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/maxwellkenned/portal2",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

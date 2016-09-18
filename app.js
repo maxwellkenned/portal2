@@ -9,7 +9,8 @@ var express = require('express'),
     mongoose = require('mongoose'),
     flash = require('express-flash'),
     moment = require('moment'),
-    expressValidator = require('express-validator');
+    expressValidator = require('express-validator'),
+    passport = require('passport');
 
 //conexão com o mongodb
 //mongoose.connect('mongodb://localhost/portal', function (err) {
@@ -38,12 +39,16 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(session({secret: 'portal', resave: false, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(flash());
 
 //HELPERS
 app.use(function(req, res, next){
     'use strict';
+    res.locals.session = req.session.usuario;
+    res.locals.isLogged = req.session.usuario ? true : false;
     res.locals.moment= moment;
     next();
 });

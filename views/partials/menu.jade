@@ -47,7 +47,10 @@ nav(class="navbar navbar-default navbar-fixed-top")
             ul(class="nav navbar-nav navbar-right")
                 li(role="separator", class="divider divisor")
                 li
-                    a(href="/") Usuario logado(Sair)
+                    a(href="/sair", class="faa-parent animated-hover")
+                        |#{session.nome} |
+                        i(class="fa fa-sign-out fa-fw faa-flash")
+                        |(Sair)
                 //
                     li
                         a(href="../navbar-static-top") Topo estático

@@ -1,13 +1,15 @@
 module.exports = function (app) {
     'use strict';
     var usuarios = app.controllers.usuarios;
-    app.get('/usuarios', usuarios.index);
+    var autenticar = require('../middleware/autenticar');
+
+    app.get('/usuarios', autenticar, usuarios.index);
     app.route('/usuarios/create')
-        .get(usuarios.create)
+        .get(autenticar, usuarios.create)
         .post(usuarios.post);
-    app.get('/usuarios/show/:id', usuarios.show);
+    app.get('/usuarios/show/:id', autenticar, usuarios.show);
     app.post('/usuarios/delete/:id', usuarios.delete);
     app.route('/usuarios/edit/:id')
-        .get(usuarios.edit)
+        .get(autenticar, usuarios.edit)
         .post(usuarios.update);
 };

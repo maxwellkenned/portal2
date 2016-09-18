@@ -14,7 +14,7 @@ block content
             label(for="site") E-mail
             input(type="email", class="form-control", id="email", name="email", placeholder="Infome o E-mail", value="#{dados.email}", disabled)
         button(type="submit" class="btn btn-success") Salvar
-block content
+block script
     if messages.erro
         each msg in messages.erro   
             script.

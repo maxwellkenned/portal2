@@ -5,14 +5,19 @@ html
     include partials/bootstrap
     include partials/links
     //- Titulo da Página
-    title= title
+    if title
+        title= title
+    else
+        title Portal Share
  
   body
-    include partials/menu
+    if isLogged
+        include partials/menu
 
     div(class="container")
         block content
 
-        include partials/footer
+        if isLogged
+            include partials/footer
     include partials/scripts
     block script
