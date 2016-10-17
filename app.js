@@ -60,7 +60,7 @@ load('models')
 app.use(erros.notfound);
 app.use(erros.serverError);
 
-app.listen(env, function () {
+http.listen(env, function () {
     "use strict";
     console.log("Portal no ar." + "\nPorta: " + env);
 });
