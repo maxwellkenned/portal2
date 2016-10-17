@@ -1,15 +1,16 @@
 doctype html
-html
+html(ng-app="portal")
   head
     meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width")
     include partials/bootstrap
     include partials/links
+    block head
     //- Titulo da Página
     if title
         title= title
     else
-        title Portal Share
- 
+        title Ceu.Cloud
   body
     if isLogged
         include partials/menu

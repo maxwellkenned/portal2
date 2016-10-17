@@ -1,7 +1,50 @@
 extends ../layout
 
+block head
+  script( src="/vendor/bootstrap-filestyle/src/bootstrap-filestyle.min.js")
+  style.
+      form.chat { background: #000; padding: 3px;
+      bottom: 0; width: 100%; }
+      form.chat input { border: 0; padding: 10px; width: 80%; margin-right: .5%; }
+      form.chat button { width: 19%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; height:440px; max-height:440px; overflow-y:auto;}
+      #messages li { padding: 5px 10px;}
+      #messages li:nth-child(odd) { background: #eee; }
 block content
-    div(class="jumbotron")
-        h1 Portal Share
-        p This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.
-        p To see the difference between static and fixed top navbars, just scroll.
+  div(style='margin-top:30px')
+    div(class='row')
+      div(class='col-md-2' style='border-right: 1px solid black;')
+
+      div(class='col-md-6' style='border-left: 1px solid black;')
+        form(action='/file', method='post', enctype='multipart/form-data')
+          div(class="form-group")
+            label Selecione o arquivo
+              input(type='file', name='arquivo', class='filestyle' data-buttonBefore="true")
+          div(class="form-group")
+            input(type='submit', value='Enviar' class='btn btn-primary')
+      div(class='col-md-4' style='border-left: 1px solid black;')
+        ul(id='messages')
+        form(action='' class='chat')
+          input(id='m' autocomplete='off')
+          button Enviar
+    
+block script
+    script( src="https://cdn.socket.io/socket.io-1.2.0.js")
+    script.
+      var socket = io();
+      $('.chat').submit(function () {
+        var msg = $('#m').val();
+        if(msg){
+        socket.emit('chat message', msg);
+        $('#m').val('');
+        }
+        return false;
+      });
+      socket.on('welcome', function() {
+      $('#messages').append($('<li class="text-center">').text('Bem-vindo ao Céu.Cloud'));
+      });
+      socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(msg));
+      var div = $("#messages");
+      div.scrollTop(div.prop('scrollHeight'));
+      });

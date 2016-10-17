@@ -12,16 +12,16 @@ block content
                         label(for="nome") Nome
                         input(type="text", class="form-control", id="nome", name="nome", placeholder="Digite seu nome", value="#{user.nome || ''}", required autofocus)
                     div(class="form-group")
+                        label(for="sobrenome") Sobrenome
+                        input(type="text", class="form-control", id="sobrenome", name="sobrenome", placeholder="Digite seu sobrenome", value="#{user.sobrenome || ''}")
+                    div(class="form-group")
                         label(for="email") E-mail
                         input(type="email", class="form-control", id="email", name='email', placeholder="Digite seu email. Ex: youremail@email.com", value="#{user.email || ''}", required)
-                    div(class="form-group")
-                        label(for="site") Site
-                        input(type="url", class="form-control", id="site", name="site", placeholder="Digite seu site", value="#{user.site || 'http://'}", required)
                     div(class="form-group")
                         label(for="senha") Senha
                         input(type="password", class="form-control", id="senha", name="senha", placeholder="Digite sua senha", required)
                     div(class="form-group")
-                        label(for="confirma_senha") Confirmar Senha
+                        label(for="confirma_senha") Confirmar senha
                         input(type="password", class="form-control", id="confirma_senha" name="confirma_senha", placeholder="Digite a senha novamente", required)
                     button(type="submit" class="btn btn-success") Salvar
                     div(class="pull-right")

@@ -1,15 +1,18 @@
 module.exports = function (app) {
     'use strict';
     var Usuario = app.models.usuarios;
+    var chatController = app.controllers.chat;
     var validacao = require('../validations/autentication');
+    var validCadastro = require ('../validations/usuarios');
 
     var HomeController = {
         index: function (req, res) {
             var params = {title: 'Portal Share'};
+            chatController;
             res.render('home/index', params);
         },
         login: function (req, res) {
-            res.render('home/login');
+            res.render('home/login', {title: 'Ceu.Cloud | Login'});
         },
         autentication: function (req, res) {
             var usuario = new Usuario();
@@ -42,11 +45,11 @@ module.exports = function (app) {
             res.render('home/register', {user: new Usuario(), title: 'Portal Share || Criar conta'});
         },
         registro: function (req, res) {
-            if (validacao(req, res)) {
+            if (validCadastro(req, res)) {
                 var model = new Usuario();
                 model.nome = req.body.nome;
+                model.sobrenome = req.body.sobrenome;
                 model.email = req.body.email;
-                model.site = req.body.site;
                 model.senha = model.generateHash(req.body.senha);
 
                 Usuario.findOne({'email': model.email}, function (err, data) {

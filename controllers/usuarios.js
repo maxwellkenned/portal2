@@ -81,7 +81,7 @@ module.exports = function (app) {
                 Usuario.findById(req.params.id, function (err, dados) {
                     var model = dados;
                     model.nome = req.body.nome;
-                    model.site = req.body.site;
+                    model.sobrenome = req.body.sobrenome;
 
                     model.save(function (err) {
                         if (err) {

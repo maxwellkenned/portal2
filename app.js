@@ -1,7 +1,7 @@
 var express = require('express'),
+    app = express(),
     load = require('express-load'),
     path = require('path'),
-    favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
@@ -10,23 +10,21 @@ var express = require('express'),
     flash = require('express-flash'),
     moment = require('moment'),
     expressValidator = require('express-validator'),
-    passport = require('passport');
+    passport = require('passport'),
+    s3fs = require('s3fs'),
+    multer = require('multer'),
+    env = process.env.PORT || 8080,
+    http = require('http').Server(app),
+    io = require('socket.io')(http);
 
-//conexão com o mongodb
-//mongoose.connect('mongodb://localhost/portal', function (err) {
-mongoose.connect('mongodb://admin:82546459@ds019472.mlab.com:19472/portal', function (err) {
-    'use strict';
-    if (err) {
-        console.log("Erro ao conectar mongodb: " + err);
-    } else {
-        console.log('Mongodb Conectado');
-    }
-});
+// DataBase
+require('./Config/dbConfig')('mongodb://127.0.0.1/portal');
 
-var app = express();
 
 //middleware
 var erros = require('./middleware/erros');
+
+app.set('io', io);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,13 +55,12 @@ load('models')
     .then('controllers')
     .then('routes')
     .into(app);
+
 //middleware
 app.use(erros.notfound);
 app.use(erros.serverError);
 
-var env = process.env.PORT || 8080;
-
-app.listen(env, function () {
+http.listen(env, function () {
     "use strict";
     console.log("Portal no ar." + "\nPorta: " + env);
 });

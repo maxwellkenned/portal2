@@ -5,8 +5,8 @@ module.exports = function () {
     'use strict';
     var usuarioSchema = mongoose.Schema({
         nome: {type: String, trim: true},
+        sobrenome: {type: String, trim: true},
         email: {type: String, trim: true, unique: true, index: true},
-        site: {type: String, trim: true},
         senha: {type: String},
         data_cadastro: {type: Date, default: Date.now}
     });

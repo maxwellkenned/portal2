@@ -9,7 +9,7 @@ nav(class="navbar navbar-default navbar-fixed-top")
             a(class="navbar-brand faa-parent animated-hover", href="/")
                 i(class="fa fa-share-alt fa-fw faa-tada faa-slow" aria-hidden="true")
                 i(class="fa fa-cloud-upload fa-fw faa-tada faa-slow" aria-hidden="true")
-                |Portal Share
+                |Ceu.Cloud
         div(id="navbar" class="navbar-collapse collapse")
             ul(class="nav navbar-nav")
                 li(class="active")
@@ -48,9 +48,10 @@ nav(class="navbar navbar-default navbar-fixed-top")
                 li(role="separator", class="divider divisor")
                 li
                     a(href="/sair", class="faa-parent animated-hover")
+                        i(class="fa fa-user fa-fw")
                         |#{session.nome} |
                         i(class="fa fa-sign-out fa-fw faa-flash")
-                        |(Sair)
+                        | Sair
                 //
                     li
                         a(href="../navbar-static-top") Topo estático

@@ -1,18 +1,25 @@
 {
   "name": "portal",
-  "description": "Portal Share",
+  "description": "",
   "main": "",
   "authors": [
     "Maxwell Kenned <kenned123@gmail.com>"
   ],
   "license": "MIT",
   "homepage": "https://github.com/maxwellkenned/portal2",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "public/vendor",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "angular-route": "^1.5.8",
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "angular-resource": "^1.5.8",
+    "angular-filemanager": "^1.5.1"
+  }
 }
