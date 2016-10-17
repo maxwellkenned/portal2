@@ -15,10 +15,21 @@ var express = require('express'),
     multer = require('multer'),
     env = process.env.PORT || 8080,
     http = require('http').Server(app),
-    io = require('socket.io')(http);
+    io = require('socket.io')(http),
+    mongoose = require('mongoose');;
 
-// DataBase
-require('./Config/dbConfig')('mongodb://127.0.0.1/portal');
+
+//conexão com o mongodb
+mongoose.connect('mongodb://admin:82546459@ds019472.mlab.com:19472/portal', function (err) {
+//mongoose.connect(uri, function (err) {
+    'use strict';
+    if (err) {
+        console.log("Erro ao conectar mongodb: " + err);
+    } else {
+        console.log('Mongodb Conectado');
+    }
+});
+mongoose.set('debug',true);
 
 
 //middleware
