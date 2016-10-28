@@ -1,16 +1,47 @@
-var multer = require('multer');
-var storage = multer.diskStorage({destination: function (req, file, cb) {cb(null, 'public/'+req.session._id)},filename: function (req, file, cb) {var ext = file.originalname.substr(file.originalname.lastIndexOf('.')+1); cb(null, file.fieldname + '-' + Date.now() + ext)}});
-var upload = multer({storage: storage});
-module.exports = function () {
+var fs = require('fs');
+
+module.exports = function (app) {
     'use strict';
     var ArquivoController = {
-        upload: function (req, res){
-            upload.single('arquivo');
-        },
-        next: function (req, res, next){
-            console.log(req.file);
+        upload: function (req, res) {
+            // fs.readFile(req.files.file.path, function(err, data) {
+            //     var dirname = 'public/uploads/';
+            //     var newPath = dirname + req.files.file.originalFilename;
+
+            //     fs.writeFile(newPath, data, function (err) {
+            //         if(err){
+            //             req.flash('erro', 'Falha no upload: \n'+err);
+            //             res.redirect('/');
+            //         } else {
+            //             req.flas('info', 'Upload realizado com sucesso.');
+            //             res.redirect('/');
+            //         }
+            //     });
+            //     });
+            req.flash('info', 'Upload realizado com sucesso.');
             res.redirect('/');
+        },
+        view: function (req, res) {
+            file = req.params.file;
+            var dir = 'public/uploads/';
+            var img = fs.readFileSync(dir + file);
+            res.writeHead(200, {'Content-Type': 'image/jpg'});
+            res.end(img, 'binary');
+        },
+        show: function (req, res) {
+            var dir = 'public/uploads/'; // give path
+            fs.readdir(dir, function(err, list) { // read directory return  error or list
+            if (err) return res.json(err);
+            else res.json(list);
+             });
+        },
+        download: function (req, res) {
+            var file = req.params.file;
+            var pasta = 'public/uploads/'+file;
+            console.log(pasta);
+            res.download(pasta); // magic of download fuction
         }
-    }
+
+    };
     return ArquivoController;
 };

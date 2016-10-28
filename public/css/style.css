@@ -16,3 +16,45 @@ a {
 .margin-l{
 	margin-left:3px;
 }
+
+
+.bar2, .bar3{
+    margin-top:4px;
+}
+.bar1, .bar2, .bar3 {
+    display: block;
+    width: 25px;
+    height: 3px;
+    border-radius: 1px;
+    background-color: rgba(0,0,0,0.6);
+    transition: 0.5s;
+}
+
+.change {
+    position: relative;
+    float: right;
+    margin-right: 15px;
+    padding: 5px 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+/* Rotate first bar */
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-5px, 5px);
+    transform: rotate(-45deg) translate(-5px, 5px);
+}
+
+/* Fade out the second bar */
+.change .bar2 {
+    opacity: 0;
+}
+
+/* Rotate last bar */
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-5px, -5px);
+    transform: rotate(45deg) translate(-5px, -5px);
+}

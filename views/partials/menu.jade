@@ -1,11 +1,11 @@
 nav(class="navbar navbar-default navbar-fixed-top")
     div(class="container")
         div(class="navbar-header")
-            button(type="button", class="navbar-toggle collapsed", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar")
+            button(type="button", class="navbar-toggle collapsed", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar", onclick="menuMobile(this)")
                 span(class="sr-only") Toggle navigation
-                span(class="icon-bar")
-                span(class="icon-bar")
-                span(class="icon-bar")
+                span(class="bar1 icon-bar1")
+                span(class="bar2 icon-bar1")
+                span(class="bar3 icon-bar1")
             a(class="navbar-brand faa-parent animated-hover", href="/")
                 i(class="fa fa-share-alt fa-fw faa-tada faa-slow" aria-hidden="true")
                 i(class="fa fa-cloud-upload fa-fw faa-tada faa-slow" aria-hidden="true")
@@ -58,3 +58,8 @@ nav(class="navbar navbar-default navbar-fixed-top")
                     li(class="active")
                         a(href="./") Topo fixado
                         span(class="sr-only") (current)
+block script
+    script.
+        function menuMobile(x) {
+            x.classList.toggle("change");
+        }

@@ -16,7 +16,9 @@ var express = require('express'),
     env = process.env.PORT || 8080,
     http = require('http').Server(app),
     io = require('socket.io')(http),
-    mongoose = require('mongoose');;
+    mongoose = require('mongoose'),
+    fs = require('fs'),
+    formidable = require('formidable');
 
 
 //conexão com o mongodb
@@ -36,6 +38,8 @@ mongoose.set('debug',true);
 var erros = require('./middleware/erros');
 
 app.set('io', io);
+app.set('fs', fs);
+app.set('formidable', formidable)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

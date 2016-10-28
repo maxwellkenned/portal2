@@ -5,8 +5,6 @@ module.exports = function (app) {
     io.on('connection', function (socket) {
         socket.emit('welcome', ExibirMsg());
        // socket.broadcast.emit('Contato', {userid: userid});
-       
-        ExibirMsg();
 
         socket.on('chat message', function(msg){
             io.emit('chat message', msg);
@@ -27,9 +25,8 @@ module.exports = function (app) {
         Chat.find(function (err, dados) {
                 if (err) {console.log('Erro: '+err)}
                 else {
-                    params = {lista: dados};
+                    return dados;
                 }
-            console.log(params);
             });
     };
 };

@@ -4,12 +4,19 @@ module.exports = function (app) {
     var chatController = app.controllers.chat;
     var validacao = require('../validations/autentication');
     var validCadastro = require ('../validations/usuarios');
+    var Chat = app.models.chat;
+    var io = app.get('io');
+
 
     var HomeController = {
         index: function (req, res) {
-            var params = {title: 'Portal Share'};
+            var params;
             chatController;
-            res.render('home/index', params);
+            Chat.find(function (err, dados) {
+                if (err) console.log('Erro: '+err);
+                    res.render('home/index', {lista: dados});
+            });
+            
         },
         login: function (req, res) {
             res.render('home/login', {title: 'Ceu.Cloud | Login'});
