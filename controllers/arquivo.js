@@ -23,25 +23,48 @@ module.exports = function (app) {
         },
         view: function (req, res) {
             file = req.params.file;
-            var dir = 'public/uploads/';
+            var dir = 'public/uploads/arquivos/';
             var img = fs.readFileSync(dir + file);
             res.writeHead(200, {'Content-Type': 'image/jpg'});
             res.end(img, 'binary');
         },
         show: function (req, res) {
-            var dir = 'public/uploads/'; // give path
-            fs.readdir(dir, function(err, list) { // read directory return  error or list
-            if (err) return res.json(err);
-            else res.json(list);
-             });
+            var dir = 'public/uploads/arquivos/'; // give path
+                criarPasta();
+                fs.exists(dir, (exists) => {
+                    if(exists){
+                        fs.readdir(dir, function(err, list) { // read directory return  error or list
+                            if (err) return res.json(err);
+                            else res.json(list);
+                         });
+                    }
+                });
         },
         download: function (req, res) {
             var file = req.params.file;
-            var pasta = 'public/uploads/'+file;
+            var pasta = 'public/uploads/arquivos/'+file;
             console.log(pasta);
             res.download(pasta); // magic of download fuction
         }
 
+    };
+    var criarPasta = function(req, res){
+        var dir = 'public/uploads/'; // give path
+        var files = dir+'arquivos/';
+            fs.exists(dir, (exists) => {
+             if(!exists){
+                fs.mkdir(dir, function(args){
+                   console.log('Pasta: '+dir+' criado com sucesso!');
+                });
+             }
+            });
+            fs.exists(files, (exists) => {
+                if(!exists){
+                fs.mkdir(files, function(args){
+                   console.log('Pasta: '+files+' criado com sucesso!');
+                });
+             }
+            });
     };
     return ArquivoController;
 };
