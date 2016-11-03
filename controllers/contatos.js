@@ -1,8 +1,7 @@
 var validacao = require('../validations/contatos');
 
 module.exports = function (app) {
-    'use strict';
-
+    'use strict';   
     var Contatos = app.models.contatos;
 
     var ContatoController = {
@@ -64,9 +63,30 @@ module.exports = function (app) {
                     req.flash('erro', 'Erro ao carregar: ' + err);
                     req.redirect('/contatos');
                 } else{
-                    res.render('contatos/update', {model: dados});
+                    res.render('contatos/edit', {model: dados});
                 }
             });
+        },
+        update: function (req, res){
+            if (validacao(req, res)) {
+                Contatos.findById(req.params.id, function (err, dados) {
+                    var model = dados.
+                    model.nome = req.body.nome;
+                    model.email = req.body.email;
+
+                    model.save(function (err) {
+                        if (err) {
+                            req.flash('erro', 'Erro ao atualizar: ' + err);
+                            req.render('/contatos/edit', {model: model});
+                        }else{
+                            req.flash('info', 'Contato atualizado com sucesso!');
+                            req.redirect('/contatos');
+                        }
+                    });
+                });
+            }else{
+                res.render('contatos/edit', {model: req.body});
+            }
         }
     };
 

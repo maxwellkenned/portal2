@@ -14,30 +14,11 @@ block content
   div(style='margin-top:30px')
     div(class='row')
       div(class='col-md-2' style='border-right: 1px solid black;')
-
+        include partials/tree
       div(class='col-md-6' style='border-left: 1px solid black;')
-        form(action='/upload', method='post', enctype='multipart/form-data')
-          div(class="form-group")
-            label Selecione o arquivo
-              input(type='file', name='file', class='filestyle' data-buttonBefore="true")
-          div(class="form-group")
-            input(type='submit', value='Upload' class='btn btn-primary')
-        div#download
-          table
-            thead
-              th Arquivo
-              th Download
-            tbody
-
+        include partials/file
       div(class='col-md-4' style='border-left: 1px solid black;')
-        ul(id='messages')
-          if lista.length > 0
-            each msg in lista
-              li #{msg.texto}
-
-        form(action='' class='chat')
-          input(id='m' autocomplete='off')
-          button Enviar
+        include partials/chat
     
 block script
   script( src="/js/files.js")
@@ -55,7 +36,7 @@ block script
       return false;
     });
     socket.on('welcome', function() {
-      $('#messages').append($('<li class="text-center">').text('Bem-vindo ao Céu.Cloud'));
+      $('#messages').append($('<li class="text-center" style="margin-bottom: 410px;">').text('Bem-vindo ao Céu.Cloud'));
       var div = $("#messages");
       div.scrollTop(div.prop('scrollHeight'));
     });
@@ -65,7 +46,7 @@ block script
       var div = $("#messages");
       div.scrollTop(div.prop('scrollHeight'));
     });
-
+    // AVISOS
   if messages.info
     script.
         $(document).ready(function(){

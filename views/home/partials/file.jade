@@ -1,0 +1,11 @@
+form(action='/upload', method='post', enctype='multipart/form-data')
+          div(class="form-group")
+            label(class='col-md-10') Selecione o arquivo
+              input(type='file', name='file', class='filestyle', data-buttonBefore="true", multiple)
+            input(type='submit', value='Upload', class='btn btn-primary col-md-2', style='margin-top: 2.3%;')            
+        div#download
+          table(class='table table-striped table-hover table-condensed')
+            thead
+              th
+              th Arquivos
+            tbody

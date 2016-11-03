@@ -6,9 +6,9 @@ div(class="container")
             div(class="panel panel-info")
                 div(class="panel-heading")
                     div(class="panel-title") 
-                        h1= message
+                        h4= message
                 div(class="panel-body")
-                    h2= error.status
+                    p= error.status
                     pre #{error.stack}
     include partials/footer
 include partials/scripts

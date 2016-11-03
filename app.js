@@ -61,6 +61,7 @@ app.use(flash());
 app.use(function(req, res, next){
     'use strict';
     res.locals.session = req.session.usuario;
+    app.set('user', req.session.usuario);
     res.locals.isLogged = req.session.usuario ? true : false;
     res.locals.moment= moment;
     next();
