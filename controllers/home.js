@@ -7,14 +7,15 @@ module.exports = function (app) {
     var Chat = app.models.chat;
     var io = app.get('io');
 
-
     var HomeController = {
         index: function (req, res) {
             var params;
             chatController;
+            var u = app.get('user');
+            var id = u._id;
             Chat.find(function (err, dados) {
                 if (err) console.log('Erro: '+err);
-                    res.render('home/index', {lista: dados});
+                res.render('home/index', {lista: dados});
             });
             
         },

@@ -58,3 +58,10 @@ a {
     -webkit-transform: rotate(45deg) translate(-5px, -5px);
     transform: rotate(45deg) translate(-5px, -5px);
 }
+
+.chatMsg {
+    border-radius: 2px 10px 10px 2px;
+    box-shadow: 1px 1px 4px;
+    height: auto;
+    margin: 5px;
+}

@@ -5,23 +5,25 @@ module.exports = function (app) {
     io.on('connection', function (socket) {
         socket.emit('welcome', ExibirMsg());
        // socket.broadcast.emit('Contato', {userid: userid});
-
-        socket.on('chat message', function(msg){
-            io.emit('chat message', msg);
-            SalvarMsg(msg);
+        
+        socket.on('chat message', function(dados){
+            console.log(dados);
+            io.emit('chat message', dados);
+            SalvarMsg(dados);
         });
     });
 
-    var SalvarMsg = function (msg) {
+    var SalvarMsg = function (dados) {
         var model = new Chat();
-        model.texto = msg;
+        model._idContato = dados.id;
+        model.nome = dados.nome;
+        model.texto = dados.msg;
         model.save(function (err) {
             console.log('Erro: '+err);
         });
     };
 
     var ExibirMsg = function () {
-        var params = {};
         Chat.find(function (err, dados) {
                 if (err) {console.log('Erro: '+err)}
                 else {
