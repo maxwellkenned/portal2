@@ -1,6 +1,7 @@
 module.exports = function (app) {
     'use strict';
     var home = app.controllers.home;
+    var chat = app.controllers.chat;
     var autenticar = require('../middleware/autenticar');
     var alterIndex = require('../middleware/alterIndex');
     app.get('/', alterIndex, home.login);
@@ -9,4 +10,5 @@ module.exports = function (app) {
     app.get('/sair', home.logout);
     app.get('/registrar', home.registrar);
     app.post('/registrar', home.registro);
+    app.get('/chat', chat.show);
 };

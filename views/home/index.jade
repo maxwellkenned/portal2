@@ -1,7 +1,6 @@
 extends ../layout
 
 block head
-  script( src="/vendor/bootstrap-filestyle/src/bootstrap-filestyle.min.js")
   style.
       form.chat { background: #000; padding: 3px;
       bottom: 0; width: 100%; }
@@ -21,8 +20,10 @@ block content
         include partials/chat
     
 block script
-  script( src="/js/files.js")
-  script( src="https://cdn.socket.io/socket.io-1.2.0.js")
+  script(type='text/javascript', src="https://cdn.socket.io/socket.io-1.2.0.js")
+  script(type='text/javascript', src="/js/chat.js")
+  script(type='text/javascript', src="/js/files.js")
+  
   script.
     var socket = io();
     $('.chat').submit(function () {
@@ -43,9 +44,9 @@ block script
       div.scrollTop(div.prop('scrollHeight'));
     });
     socket.on('chat message', function(msg){
-        var str = msg.id.slice(0,6);
+      var str = msg.id.slice(0,6);
       var d = new Date();
-      var data = $.format.date(d , "HH:mm dd/MM/yy");
+      var data = jQuery.format.prettyDate(d);
       $('#messages').append($('<li id="msgNome" class="col-md-10 col-xs-10" style="color:grey;">').text(msg.nome + " "+ data));
       $('#msgNome').append($('<span class="caret pull-right"></span>'));
       $('#messages').append($('<li class="chatMsg col-md-10 col-xs-10" style="background-color:#'+str+';">').text(msg.msg));
@@ -57,13 +58,14 @@ block script
     script.
         $(document).ready(function(){
             $('.alert').hide();
-            $.notify('<strong>#{messages.info}</strong>', 'success');
+            var msg = "#{messages.info}";
+            $.notify(msg, 'success');
         });
   if messages.erro
     script.
         $(document).ready(function(){
             $('.alert').hide();
-            $.notify('<strong>#{messages.erro}</strong>', 'erro');
+            $.notify('<strong>#{messages.erro}</strong>', 'error');
         });
   script.
     $(document).ready(function(){

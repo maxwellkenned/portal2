@@ -21,6 +21,7 @@
     "bootstrap": "^3.3.7",
     "angular-resource": "^1.5.8",
     "angular-filemanager": "^1.5.1",
-    "jQuery-contextMenu": "^2.3.0"
+    "jQuery-contextMenu": "^2.3.0",
+    "bootstrap-table": "^1.11.0"
   }
 }

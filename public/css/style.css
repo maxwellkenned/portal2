@@ -65,3 +65,13 @@ a {
     height: auto;
     margin: 5px;
 }
+
+.btn-login {
+    background-color: #9c27b0;
+    color: #FFF;
+}
+
+.btn-login:hover {
+    background-color: #7c1c8c;
+    color: #FFF !important;
+}
