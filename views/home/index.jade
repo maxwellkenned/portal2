@@ -1,22 +1,13 @@
 extends ../layout
 
-block head
-  style.
-      form.chat { background: #000; padding: 3px;
-      bottom: 0; width: 100%; }
-      form.chat input { border: 0; padding: 10px; width: 80%; margin-right: .5%; }
-      form.chat button { width: 19%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; height:440px; max-height:440px; overflow-y:auto;}
-      #messages li { padding: 1px 10px;}
-      #messages li:nth-child(odd) { background: #eee; }
 block content
   div(style='margin-top:30px')
     div(class='row')
-      div(class='col-md-2' style='border-right: 1px solid black;')
+      div(id="content-left" class='col-md-2 content-index')
         include partials/tree
-      div(class='col-md-6' style='border-left: 1px solid black;')
+      div(id="content-mid" class='col-md-6 content-index')
         include partials/file
-      div(class='col-md-4' style='border-left: 1px solid black;')
+      div(id="content-right" class='col-md-4 content-index')
         include partials/chat
     
 block script
@@ -35,6 +26,9 @@ block script
       if(texto){
         socket.emit('chat message', dados);
         $('#m').val('');
+      }else{
+      $('#m').notify('Digite algo', 'info');
+      return false;
       }
       return false;
     });

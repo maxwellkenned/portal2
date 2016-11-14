@@ -7,7 +7,7 @@ block content
                 div(class="panel-title")
                     h1 Criar sua conta
             div(class="panel-body")
-                form(method="POST", action="/registrar", role="form")
+                form(id="register-form" method="POST", action="/registrar", role="form")
                     div(class="form-group")
                         label(for="nome") Nome
                         input(type="text", class="form-control", id="nome", name="nome", placeholder="Digite seu nome", value="#{user.nome || ''}", required autofocus)
@@ -27,6 +27,7 @@ block content
                     div(class="pull-right")
                         a(href="/" class="btn btn-link") voltar ao login
 block script
+    script(src='/js/login/validar.js')
     // pop up de mensagem
     if messages.erro
         each msg in messages.erro   

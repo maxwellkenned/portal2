@@ -14,7 +14,7 @@ a {
     background-color: #e5e5e5;
 }
 .margin-l{
-	margin-left:3px;
+    margin-left:3px;
 }
 
 
@@ -74,4 +74,27 @@ a {
 .btn-login:hover {
     background-color: #7c1c8c;
     color: #FFF !important;
+}
+form.chat { 
+    background: #7c1c8c; 
+    padding: 3px;
+    bottom: 0; 
+    width: 100%;
+    font-weight: bold;
+}
+form.chat input {color: #7c1c8c !important;border: 1px solid #a800ffe6; padding: 10px; width: 85%; margin-right: .5%; }
+form.chat button {color: #FFF !important; width: 14.50%; background: #7c1c8c; border: none; padding: 10px; border: 1px solid #773196e6; }
+#messages { list-style-type: none; margin: 0; padding: 0; height:440px; max-height:440px; overflow-y:auto;}
+#messages li { padding: 1px 10px;}
+#messages li:nth-child(odd) {  }
+
+.content-index {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+#content-right {
+    border-left: 1px solid #2f2f2f1a;
+}
+#content-left {
+    border-right: 1px solid #2f2f2f1a;
 }
