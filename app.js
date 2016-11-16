@@ -19,9 +19,9 @@ var express = require('express'),
 
 
 //conexão com o mongodb
-//mongoose.connect('mongodb://admin:82546459@ds019472.mlab.com:19472/portal', function (err) {
-var uri = 'mongodb://localhost:27017/portal';
-mongoose.connect(uri, function (err) {
+mongoose.connect('mongodb://admin:82546459@ds019472.mlab.com:19472/portal', function (err) {
+//var uri = 'mongodb://localhost:27017/portal';
+//mongoose.connect(uri, function (err) {
     'use strict';
     if (err) {
         console.log("Erro ao conectar mongodb: " + err);
