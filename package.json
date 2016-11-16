@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "postinstall": "npm prune"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -16,15 +17,12 @@
     "express-load": "^1.1.15",
     "express-session": "^1.14.1",
     "express-validator": "^2.20.8",
-    "formidable": "^1.0.17",
     "jade": "^1.11.0",
     "moment": "^2.14.1",
     "mongoose": "^4.6.0",
     "morgan": "^1.7.0",
     "multer": "^1.2.0",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "s3fs": "^2.5.0",
+    "pug": "^2.0.0-beta6",
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.5.0"
   }

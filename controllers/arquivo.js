@@ -1,6 +1,7 @@
 var fs = require('fs');
 var multer = require('multer');
-
+var util = require('util');
+var deleteDirR = require('./helpers/delete-dir-r.js');
 module.exports = function (app) {
     'use strict';
     var storage = multer.diskStorage({
@@ -9,7 +10,6 @@ module.exports = function (app) {
             var dir = 'public/uploads/'; // give path
             var files = dir + user._id +'/';
             cb(null, files);
-            console.log(files);
         },
         filename: function (req, file, cb) {
             var ext = file.originalname.substr(file.originalname.lastIndexOf('.')+1); cb(null, file.originalname);
@@ -17,6 +17,7 @@ module.exports = function (app) {
     });
     var upload = multer({storage: storage}).array('file');
     var Arquivo = app.models.arquivo;
+    var Helpers = app.controllers.helpers;
     
     var ArquivoController = {
         upload: function (req, res) {
@@ -36,30 +37,28 @@ module.exports = function (app) {
                     model.size = data.size;
                     Arquivo.findOne({'_idUsuario': model._idUsuario,'filename': model.filename, 'path': model.path},function (err, dados){
                         if(dados){
-                            console.log('Dados: '+dados);
                             model.update({upsert: true}, function(err){
                                 if(err){
                                     req.flash('error', 'Não foi possível realizar o Upload');
                                 } else {
-                                    req.flash('info', 'Upload realizado com sucesso');
+                                    req.flash('info', 'Arquivo atualizado com sucesso');
                                 }
                             });
                         } else{
-                            console.log('Model: '+model);
                             model.save(function(err){
                                 if(err){
                                     console.log('Erro: '+err);
+                                } else {
+                                    req.flash('info', 'Upload realizado com sucesso');
                                 }
                             });
                         }
                     });
                     
                 });
-                console.log(req.files);
                 if(err) {
                     return res.end("Error uploading file.");
                 }
-                req.flash('info', 'Upload resalizado com sucesso.');
                 res.redirect('/');
             });
         },
@@ -85,8 +84,36 @@ module.exports = function (app) {
             var dir = 'public/uploads/'; // give path
             var files = dir + user._id +'/';
             var pasta = files+file;
-            console.log(pasta);
             res.download(pasta); // magic of download fuction
+        },
+        clearPasta: function (req, res, id) {
+            var dir = 'public/uploads/';
+            var item = [];
+            var pasta = dir + id + '\\';
+            if(fs.existsSync(pasta)){
+                fs.readdir(pasta, function (err, data){
+                    if(err){
+                        console.log('fs.readdir Erro: '+err);
+                    } else if(data){
+                        data.forEach(function (data2) {
+                            Arquivo.findOne({'filename': data2}, function (err, data3){
+                                if(data3){
+                                    item.push(data3.filename);
+                                } else if (err) {
+                                    console.log('Arquivo.findOne Erro: '+err);
+                                }
+                            });
+                        });    
+                    }
+                });
+            if(0>1){
+                fs.rmdir(pasta, function(args){
+                    if(args){
+                        console.log('Erro: '+args);
+                    }                  
+                });
+            }
+            }
         }
     };
     return ArquivoController;

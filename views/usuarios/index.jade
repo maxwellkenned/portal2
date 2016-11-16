@@ -3,7 +3,7 @@ extends ../layout
 block content
     h1 Usuarios
     a(href="/usuarios/create", class="btn btn-success") Cadastro de usuários
-    br
+    a(href="/limparDiretorio", class="btn btn-warning") Limpar diretório de Usuários
     br
     if lista.length > 0
         div(class="table-responsive")
@@ -37,13 +37,13 @@ block script
         script.
             $(document).ready(function(){
                 $('.alert').hide();
-                $.notify('<strong>#{messages.info}</strong>', 'success');
+                $.notify('#{messages.info}', 'success');
             });
     if messages.erro
         script.
             $(document).ready(function(){
                 $('.alert').hide();
-                $.notify('<strong>#{messages.erro}</strong>', 'erro');
+                $.notify('#{messages.erro}', 'erro');
             });
     script.
         $(document).ready(function(){

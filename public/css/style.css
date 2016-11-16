@@ -88,10 +88,6 @@ form.chat button {color: #FFF !important; width: 14.50%; background: #7c1c8c; bo
 #messages li { padding: 1px 10px;}
 #messages li:nth-child(odd) {  }
 
-.content-index {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
 #content-right {
     border-left: 1px solid #2f2f2f1a;
 }

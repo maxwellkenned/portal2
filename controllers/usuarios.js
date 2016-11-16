@@ -1,6 +1,8 @@
+var fs = require('fs');
 module.exports = function (app) {
     'use strict';
     var validacao = require('../validations/usuarios');
+    var deleteDirR = require('./helpers/delete-dir-r.js');
     var Usuario = app.models.usuarios;
 
     var UsuariosController = {
@@ -61,6 +63,12 @@ module.exports = function (app) {
                     req.flash('erro', 'Erro ao excluir usuário: ' + err);
                     res.redirect('/usuarios');
                 } else {
+                    if(fs.existsSync('public/uploads/'+req.params.id+'/')){
+                    deleteDirR('public/uploads/'+req.params.id+'/', function (err){
+                        if (err) throw (err);
+                        console.log('Diretorio: '+'public/uploads/'+req.params.id+'/'+' excluido!');
+                    });
+                    }
                     req.flash('info', 'Usuário excluído com sucesso!');
                     res.redirect('/usuarios');
                 }
@@ -96,6 +104,38 @@ module.exports = function (app) {
             } else {
                 res.render('usuarios/edit', {dados: req.body});
             }
+        },
+        limparDir: function (req, res) {
+        let pasta = 'public/uploads/';
+        let files = [];
+        let curPath = '';
+        let cont = 0, c2 = 0;
+        let excluir = true;
+        files = fs.readdirSync(pasta);
+        files.forEach(function(file, index){
+            Usuario.findById(file, function (err, dados){
+                if(dados){
+                    if (file == dados._id){
+                         excluir = false;
+                    }
+                }
+                if(excluir){
+                    curPath = pasta + '/' + file;
+                    if (fs.lstatSync(curPath).isDirectory()) {
+                        deleteDirR(curPath, function (err){
+
+                        });
+                    } else {
+                        fs.unlinkSync(curPath);
+                    }
+                } else {
+                    console.log('Usuário cadastrado!');
+                }
+            excluir?cont++:cont;
+            });
+        });
+            req.flash('info','Diretórios limpos com sucesso!');
+            res.redirect('/usuarios');
         }
     };
     return UsuariosController;

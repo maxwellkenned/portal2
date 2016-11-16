@@ -11,7 +11,28 @@ $(function(){
         $('#form-upload').append($('<span id="file_'+i+'" class="col-md-2 col-sm-2 col-xs-2">'+filesize(file[i].size,{round: 0})+'</span>'));
       });
     });
+
+    $("#fileuploader").uploadFile({
+    url:"/upload",
+    fileName:"file",
+    autoSubmit: true,
+    showDone: false,
+    showDownload: false,
+    showProgress: true,
+    showPreview: true,
+    previewWidth: "100%",
+    dragdropWidth: "100%",
+    afterUploadAll:function(obj)
+        {
+           location.reload();
+           setInterval($.notify('Upload realizado com sucesso.', 'success'), 3000);
+        }
+    });
+    
 });
+
+
+
 $('#form-upload').submit(function(){
     var cont = $("#input-file")[0].files.length;
     if(cont < 1){
@@ -19,10 +40,13 @@ $('#form-upload').submit(function(){
         return false;
     }
 });
+
+
 function removeFile(data){
     $(data).remove();
     return false;
-}
+};
+
 function populateTable(){
     var tableContent = '';
     $.get('/show', function (data) {
@@ -30,7 +54,6 @@ function populateTable(){
             $('#div-arq').hide();
         }else {
         for(var item in data){
-            console.log('item: '+data[item]);
             let nome = data[item].filename;
             let dataFormatada = jQuery.format.date(data[item].data_upload, 'dd/MM/yyyy HH:mm:ss');
             let tamanho = filesize(data[item].size,{round:0});
@@ -42,7 +65,6 @@ function populateTable(){
             tableContent += '<td>'+tamanho+'</td>';
             tableContent += '</tr>';
         } 
-            console.log(tableContent);
             $('#download table tbody').html(tableContent);
         }
     });

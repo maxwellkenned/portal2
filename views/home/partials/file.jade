@@ -1,8 +1,7 @@
 form( id='form-upload' action='/upload', method='post', enctype='multipart/form-data')
   div(class="form-group")
     label(class='col-md-10') Selecione o arquivo
-      input(id='input-file',type='file', name='file', class='filestyle', data-buttonBefore="true", multiple)
-    input(id='upload-submit', type='submit', value='Upload', class='btn btn-primary col-md-2', style='margin-top: 2.3%;')
+      div(id='fileuploader') Upload
     div(id="download")
       table(id="table" class="table table-striped table-condensed table-hover")
         thead

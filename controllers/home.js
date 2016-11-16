@@ -1,5 +1,5 @@
 var fs = require('fs');
-var util = require('util')
+
 module.exports = function (app) {
     'use strict';
     var Usuario = app.models.usuarios;
@@ -8,7 +8,8 @@ module.exports = function (app) {
     var validCadastro = require ('../validations/usuarios');
     var Chat = app.models.chat;
     var io = app.get('io');
-    var Arquivo = app.models.arquivo;
+    var Helpers = app.controllers.helpers;
+    var Arquivo = app.controllers.arquivo;
 
     var HomeController = {
         index: function (req, res) {
@@ -35,6 +36,7 @@ module.exports = function (app) {
                         req.flash('info', 'Bem vindo ao Ceu.Cloud!');
                         req.session.usuario = data;
                         res.redirect('/home');
+                        Helpers.criarPasta(req, res, data._id);
                     }
                 });
             } else {
@@ -65,14 +67,14 @@ module.exports = function (app) {
                         req.flash('erro', 'E-mail já cadastrado, informe outro.');
                         res.render('home/register', {user: model});
                     } else {
-                        model.save(function (err) {
+                        model.save(function (err, data) {
                             if (err) {
                                 req.flash('erro', 'Erro ao cadastrar: ' + err);
                                 res.render('home/register', {user: req.body, title: 'Cadastro de Usuários'});
                             } else {
                                 req.flash('info', 'Cadastrado com sucesso!');
                                 res.redirect('/');
-                                criarPasta();
+                                Helpers.criarPasta(req, res, data._id);
                             }
                         });
                     }
@@ -81,27 +83,7 @@ module.exports = function (app) {
                 res.render('home/register', {user: req.body});
             }
         }
-    }
+    };
     // Retorna a variavel do controllador.
     return HomeController;
-    // Criar a Pasta do usuario para Upload. Verifica se já existe, se não existir ele cria.
-    var criarPasta = function(){
-    var user = app.get('user');
-    var dir = 'public/uploads/'; // give path
-    var files = dir + user._id +'/';
-        fs.exists(dir, (exists) => {
-         if(!exists){
-            fs.mkdir(dir, function(args){
-               console.log('Pasta: '+dir+' criado com sucesso!');
-            });
-         }
-        });
-        fs.exists(files, (exists) => {
-            if(!exists){
-                fs.mkdir(files, function(args){
-                   console.log('Pasta: '+files+' criado com sucesso!');
-                });
-            }
-        });
-    };
 };

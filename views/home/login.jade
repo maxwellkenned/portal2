@@ -1,5 +1,8 @@
 extends ../layout
 
+block head
+  //include partials/login/links
+
 block content
   div(class="container-fluid")
     div(id="loginbox" class="col-lg-6 col-sm-8 col-md-6 col-md-offset-3 col-sm-offset-2 col-lg-offset-3")
@@ -35,6 +38,7 @@ block content
                     div(style="border-top: 1px solid#888; padding-top:15px;") Não tem uma conta? 
                       a(href="/registrar" onClick="$('#loginbox').hide(); $('#signupbox').show()") Crie uma agora.                      
 block script
+  //include partials/login/scripts
   script(src='/js/login/validar.js')
   if messages.erro
     each msg in messages.erro   

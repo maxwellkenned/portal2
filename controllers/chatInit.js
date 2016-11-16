@@ -7,7 +7,6 @@ module.exports = function (app) {
        // socket.broadcast.emit('Contato', {userid: userid});
         
         socket.on('chat message', function(dados){
-            console.log(dados);
             io.emit('chat message', dados);
             SalvarMsg(dados);
         });

@@ -21,32 +21,13 @@ nav(class="navbar navbar-default navbar-fixed-top")
                             a(href="/contatos", class="faa-parent animated-hover")
                                 i(class="fa fa-list fa-fw faa-wrench faa-slow")
                                 |Contatos
-                        
-                li
-                    a(href="/usuarios", class="faa-parent animated-hover") 
-                        i(class="fa fa-user fa-fw faa-wrench faa-slow")
-                        |Usuários
-                li  
-                    //
-                        a(href="/email") Entrar em contato
-            //
-                li(class="dropdown")
-                    a(href="#", class="dropdown-toggle" ,data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") Dropdown 
-                        span(class="caret")
-                    ul(class="dropdown-menu")
-                        li
-                            a(href="#") Ação
-                        li
-                            a(href="#") Outra ação
-                        li
-                            a(href="#") Algo mais aqui
-                        li(role="separator", class="divider")
-                        li(class="dropdown-header") Cabeçalho de navegação
-                        li
-                            a(href="#") Link separado
-                        li
-                            a(href="#") Mais um link separado
-            
+                if session.tipo_user == 3
+                    li(role="separator", class="divider divisor")  
+                    li 
+                        a(href="/usuarios", class="faa-parent animated-hover") 
+                            i(class="fa fa-user fa-fw faa-wrench faa-slow")
+                            |Administrar usuarios
+
             ul(class="nav navbar-nav navbar-right")
                 li(role="separator", class="divider divisor")
                 li

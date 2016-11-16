@@ -8,7 +8,8 @@ module.exports = function () {
         sobrenome: {type: String, trim: true},
         email: {type: String, trim: true, unique: true, index: true},
         senha: {type: String},
-        data_cadastro: {type: Date, default: Date.now}
+        data_cadastro: {type: Date, default: Date.now},
+        tipo_user: {type: Number, default: 1}
     });
     usuarioSchema.methods.generateHash = function (senha) {
         return bcrypt.hashSync(senha, bcrypt.genSaltSync(8), null);
