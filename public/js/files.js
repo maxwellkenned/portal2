@@ -58,7 +58,7 @@ function populateTable(){
             let dataFormatada = jQuery.format.date(data[item].data_upload, 'dd/MM/yyyy HH:mm:ss');
             let tamanho = filesize(data[item].size,{round:0});
             //tableContent += '<tr id="tr-id-'+i+'" class="tr-class-'+i+'" data-title="bootstrap table">';
-            tableContent += '<tr>';
+            tableContent += '<tr style="">';
             tableContent += '<td><i class="fa fa-file" aria-hidden="true"></i></td>'
             tableContent += '<td><a href="'+/download/+nome+'">'+nome+'</a></td>';
             tableContent += '<td>'+dataFormatada+'</td>';

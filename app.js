@@ -10,15 +10,12 @@ var express = require('express'),
     flash = require('express-flash'),
     moment = require('moment'),
     expressValidator = require('express-validator'),
-    passport = require('passport'),
-    s3fs = require('s3fs'),
     multer = require('multer'),
     env = process.env.PORT || 8080,
     http = require('http').Server(app),
     io = require('socket.io')(http),
     mongoose = require('mongoose'),
-    fs = require('fs'),
-    formidable = require('formidable');
+    fs = require('fs');
 
 
 //conexão com o mongodb
@@ -40,7 +37,6 @@ var erros = require('./middleware/erros');
 
 app.set('io', io);
 app.set('fs', fs);
-app.set('formidable', formidable)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -53,8 +49,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(session({secret: 'portal', resave: false, saveUninitialized: true}));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(flash());
 

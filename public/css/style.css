@@ -94,3 +94,7 @@ form.chat button {color: #FFF !important; width: 14.50%; background: #7c1c8c; bo
 #content-left {
     border-right: 1px solid #2f2f2f1a;
 }
+
+#responsive-table {
+    display:block;
+}
