@@ -30,6 +30,10 @@ $('#register-form').submit(function(){
     $('#sobrenome').notify('Infome o sobrenome', 'error');
     $('#sobrenome').focus();
     return false;
+  }else if(senha.length < 6){
+    $('#senha').notify('A senha deve ser maior que 6 caracteres', 'error');
+    $('#senha').focus();
+    return false;
   }else if(senha.length < 1 ){
     $('#senha').notify('Infome a senha', 'error');
     $('#senha').focus();

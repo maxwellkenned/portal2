@@ -17,7 +17,7 @@ module.exports = function (app) {
         model.nome = dados.nome;
         model.texto = dados.msg;
         model.save(function (err) {
-            console.log('Erro: '+err);
+            if (err) console.log('Erro: '+err);
         });
     };
 

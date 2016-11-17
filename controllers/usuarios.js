@@ -90,7 +90,8 @@ module.exports = function (app) {
                     var model = dados;
                     model.nome = req.body.nome;
                     model.sobrenome = req.body.sobrenome;
-
+                    model.email = req.body.email;
+                    model.tipo_user = req.body.tipo;
                     model.save(function (err) {
                         if (err) {
                             req.flash('erro', 'Erro ao atualizar usuário: ' + err);

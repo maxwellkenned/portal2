@@ -33,7 +33,7 @@ block script
       return false;
     });
     socket.on('welcome', function() {
-      $('#messages').append($('<li class="text-center col-md-12 col-xs-12" style="margin-bottom: 410px;">').text('Bem-vindo ao Céu.Cloud'));
+      $('#messages').append($('<li class="text-center col-md-12 col-xs-12">').text('Bem-vindo ao Céu.Cloud'));
       var div = $("#messages");
       div.scrollTop(div.prop('scrollHeight'));
     });
@@ -59,7 +59,7 @@ block script
     script.
         $(document).ready(function(){
             $('.alert').hide();
-            $.notify('<strong>#{messages.erro}</strong>', 'error');
+            $.notify('#{messages.erro}', 'error');
         });
   script.
     $(document).ready(function(){

@@ -2,11 +2,6 @@ div(class="form-group")
     div(class="row")
         div(class="col-md-12")
             ul(id='messages')
-              if(chat)
-                each msg in chat
-                    - var color = msg._idContato?msg._idContato.slice(0,6):''
-                    li(class='col-md-10 col-xs-10') #{msg.nome} #{moment(msg.data_msg).format('HH:mm DD/MM/YY')}
-                    li(class='chatMsg col-md-10 col-xs-10', style="background-color:##{color}; opacity:0.8;") #{msg.texto}
     div(class="row")
         div(class="col-md-12")
             form(action='' class='chat')

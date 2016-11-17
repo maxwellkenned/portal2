@@ -1,8 +1,17 @@
-body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  padding-top: 50px;
+html {
+    position: relative;
+    min-height: 100%;
 }
-
+body {
+    margin: 0 0 40px; /* altura do seu footer */
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding-top: 50px;
+}
+footer {
+    position: absolute; 
+    bottom: 0px; 
+    width: 100%;
+}
 a {
   color: #00B7FF;
 }
@@ -67,6 +76,8 @@ a {
 }
 
 .btn-login {
+    font-size: 18px;
+    font-weight: bold;
     background-color: #9c27b0;
     color: #FFF;
 }
@@ -97,4 +108,14 @@ form.chat button {color: #FFF !important; width: 14.50%; background: #7c1c8c; bo
 
 #responsive-table {
     display:block;
+}
+.glyphicon {
+    font-size: 25px;
+}
+
+#loginbox #login-password, #login-username {
+    font-size: 20px;
+}
+#loginbox .panel-title {
+    font-size: 23px;
 }

@@ -1,7 +1,7 @@
 module.exports = function (req, res) {
     'use strict';
     req.assert('email', 'E-mail inválido').isEmail();
-    req.assert('senha', 'Senha deve ter no mínimo 6 caracteres.').len(6, 50);
+    req.assert('senha', 'Informe a senha').len(1, 50);
 
     var validacaoErros = req.validationErrors() || [];
 
