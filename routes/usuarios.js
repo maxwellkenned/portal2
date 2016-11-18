@@ -8,10 +8,10 @@ module.exports = function (app) {
     app.route('/usuarios/create')
         .get(autenticar, usuarios.create)
         .post(usuarios.post);
-    app.get('/usuarios/show/:id', autenticar, usuarios.show);
+    app.get('/usuarios/show/:id', autAdmin, usuarios.show);
     app.post('/usuarios/delete/:id', usuarios.delete);
     app.route('/usuarios/edit/:id')
-        .get(autenticar, usuarios.edit)
+        .get(autAdmin, usuarios.edit)
         .post(usuarios.update);
     app.get('/limparDiretorio', autAdmin, usuarios.limparDir);
 };

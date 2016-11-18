@@ -2,12 +2,14 @@ var mongoose = require('mongoose');
 module.exports = function () {
     'use strict';
     var contatosSchema = mongoose.Schema({
-        tipo: {type: String, required:true, trim: true},
+        tipo: {type: String, trim: true},
         telefone: {type: String, trim: true}
     });
 
     var contatoSchema = mongoose.Schema({
-        nome: {type: String, required: true, trim: true},
+        _idUsuario: {type: String, trim: true},
+        nome: {type: String, trim: true},
+        sobrenome: {type: String, trim: true},
         email: {type: String, trim: true, unique: true},
         contatos: [contatosSchema],
         data_cadastro: {type: Date, default: Date.now}

@@ -1,46 +1,51 @@
 extends ../layout
 
 block content
-  div(id="page-login")
-    div(id="logo" class="col-lg-8 col-sm-8 col-md-8 col-xs-8")
-      img(src="/images/logo/cloud1.png")
-    div(id="loginbox" class="col-lg-4 col-sm-4 col-md-4 col-xs-4")
-      div(class="panel panel-info")
-        div(class="panel-heading")
-          div(class="panel-title")
-            i(class="fa fa-cloud fa-fw")
-            | Ceu.Cloud | Login
-        div(style="padding-top:30px" class="panel-body")
-          form(id="loginform" method="POST" action="/" class="form-horizontal" role="form")
-            br
-            div(style="margin-bottom: 25px" class="input-group")
-              span(for="login-username" class="input-group-addon")
-                i(class="glyphicon glyphicon-user")
-              input(id="login-username" type="text" class="form-control" name="email" value="" placeholder="E-mail" autofocus required)
-            div(style="margin-bottom: 5px" class="input-group")
-              span(for="login-password" class="input-group-addon")
-                i(class="glyphicon glyphicon-lock")
-              input(id="login-password" type="password" class="form-control " name="senha" placeholder="Senha")
-            div(class="input-group pull-right" style="margin-bottom: 25px")
-              div(class="checkbox checkbox-circle checkbox-info")
+  div(id="page-login" class="container")
+    div(id="logo" class="col-xs-12 col-sm-12 col-md-7 offset-md-0")
+      img(src="/images/logo/cloud1.png" class="img-fluid")
+    div(id="login" class="col-xs-12 col-sm-12 col-md-4")
+      div(id="loginbox")
+        div(class="panel panel-info ")
+          div(class="panel-heading")
+            div(class="panel-title")
+              i(class="fa fa-cloud fa-fw")
+              | Ceu.Cloud | Login
+          div(style="padding-top:30px" class="panel-body")
+            form(id="loginform" method="POST" action="/" class="form-horizontal" role="form")
+              br
+              div(style="margin-bottom: 25px" class="input-group")
+                span(for="login-username" class="input-group-addon")
+                  i(class="glyphicon glyphicon-user")
+                input(id="login-username" type="text" class="form-control" name="email" value="" placeholder="E-mail" autofocus required)
+              div(style="margin-bottom: 5px" class="input-group")
+                span(for="login-password" class="input-group-addon")
+                  i(class="glyphicon glyphicon-lock")
+                input(id="login-password" type="password" class="form-control " name="senha" placeholder="Senha")
+              div(class="input-group pull-right" style="margin-bottom: 25px")
+                div(class="checkbox checkbox-circle checkbox-info")
+                  //
+                    input(id="checkbox" class="checkbox" type="checkbox" name="remember" value="1") 
+                    label(for="checkbox") Lembrar
+              div(style="margin-top:10px" class="form-group")
+                div(class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-sm-12 col-md-12 col-xs-12 controls ")
+                  button(id="btn-login" class="btn btn-login col-xs-8 ") Login
                 //
-                  input(id="checkbox" class="checkbox" type="checkbox" name="remember" value="1") 
-                  label(for="checkbox") Lembrar
-            div(style="margin-top:10px" class="form-group")
-              div(class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-sm-12 col-md-12 col-xs-12 controls ")
-                button(id="btn-login" class="btn btn-login col-xs-8 ") Login
-              //
-                 div(class="pull-right" style="margin:10px 10px 0 0")
-                    a(href="#") Esqueceu a senha?
-            div(class="form-group")
-                div(class="col-md-12 control text-center")
-                  h4
-                    div(style="border-top: 1px solid#888; padding-top:15px;") Não tem uma conta? 
-                      br
-                      a(href="/registrar" onClick="$('#loginbox').hide(); $('#signupbox').show()") Crie uma agora.                      
+                   div(class="pull-right" style="margin:10px 10px 0 0")
+                      a(href="#") Esqueceu a senha?
+              div(class="form-group")
+                  div(class="col-md-12 control text-center")
+                    h4
+                      div(style="border-top: 1px solid#888; padding-top:15px;") Não tem uma conta? 
+                        br
+                        a(href="/registrar" onClick="$('#loginbox').hide(); $('#signupbox').show()") Crie uma agora.                      
 block script
   //include partials/login/scripts
   script(src='/js/login/validar.js')
+  script.
+    $(function(){
+       document.documentElement.requestFullscreen();
+    });
   if messages.erro
     each msg in messages.erro   
       script.

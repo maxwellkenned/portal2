@@ -2,6 +2,20 @@ html {
     position: relative;
     min-height: 100%;
 }
+@media (max-width: 900px) { 
+body {
+    padding-top: 5px !important;
+}
+
+#index, #contatos {
+    padding-top: 50px;
+}
+
+#logo img{
+margin-bottom: 10px;
+}
+
+ }
 body {
     margin: 0 0 40px; /* altura do seu footer */
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;

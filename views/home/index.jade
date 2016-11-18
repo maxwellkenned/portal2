@@ -1,19 +1,21 @@
 extends ../layout
 
 block content
-  div(style='margin-top:30px')
-    div(class='row')
-      div(id="content-left" class='col-md-2 content-index')
-        include partials/tree
-      div(id="content-mid" class='col-md-6 content-index')
-        include partials/file
-      div(id="content-right" class='col-md-4 content-index')
-        include partials/chat
+  div(id="index")
+    div(style='margin-top:30px')
+      div(class='row')
+        div(id="content-left" class='col-md-3 content-index')
+          include partials/tree
+        div(id="content-mid" class='col-md-6 content-index')
+          include partials/file
+        div(id="content-right" class='col-md-3 content-index')
+          include partials/chat
     
 block script
   script(type='text/javascript', src="https://cdn.socket.io/socket.io-1.2.0.js")
   script(type='text/javascript', src="/js/chat.js")
   script(type='text/javascript', src="/js/files.js")
+  script(type='text/javascript', src="/js/contatos.js")
   
   script.
     var socket = io();

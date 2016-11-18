@@ -48,7 +48,7 @@ function removeFile(data){
 };
 
 function populateTable(){
-    var tableContent = '';
+    let tableContent = '';
     $.get('/show', function (data) {
         if(!data){
             $('#div-arq').hide();
