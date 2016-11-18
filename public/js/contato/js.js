@@ -10,6 +10,13 @@ $(function () {
         $email.val('Carregando...');
 
         $.getJSON('/contatos/buscar/' + $busca, function(data){
+            if(!data){
+                $("input[name='busca']").notify('Nenhum usuario encontrado', 'error'); 
+                $('#nome').focus();
+                $nome.val('');
+                $sobrenome.val('');
+                $email.val('');
+            }
             $nome.val(data.nome);
             $sobrenome.val(data.sobrenome);
             $email.val(data.email);
