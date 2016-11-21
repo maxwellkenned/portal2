@@ -1,5 +1,4 @@
-nav(class="navbar navbar-default navbar-fixed-top")
-    div(class="container")
+nav(class="navbar navbar-default navbar-fixed-top col-xs-12 col-sm-12 col-md-12")
         div(class="navbar-header")
             button(type="button", class="navbar-toggle collapsed", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar", onclick="menuMobile(this)")
                 span(class="sr-only") Toggle navigation
@@ -26,21 +25,27 @@ nav(class="navbar navbar-default navbar-fixed-top")
                         a(href="/usuarios", class="faa-parent animated-hover") 
                             i(class="fa fa-user fa-fw faa-wrench faa-slow")
                             |Administrar usuarios
-
-            ul(class="nav navbar-nav navbar-right")
                 li(role="separator", class="divider divisor")
-                li
-                    a(href="/sair", class="faa-parent animated-hover")
-                        i(class="fa fa-user fa-fw")
-                        |#{session.nome} |
-                        i(class="fa fa-sign-out fa-fw faa-flash")
-                        | Sair
-                //
-                    li
-                        a(href="../navbar-static-top") Topo estático
-                    li(class="active")
-                        a(href="./") Topo fixado
-                        span(class="sr-only") (current)
+                li(class="hidden-md-up")
+                    a(class="dropdown-item" href="#") 
+                        i(class="fa fa-user fa-fw faa-flash")
+                        | #{session.nome}
+                    a(href="/sair", class="dropdown-item faa-parent animated-hover")
+                            i(class="fa fa-sign-out fa-fw faa-flash")
+                            | Sair
+            ul(class="nav navbar-nav navbar-right align-middle hidden-sm-down")
+                li(class="nav-item dropdown")
+                    a(class="nav-link dropdown-toggle" href="http://example.com" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                        i(class="fa fa-user fa-fw fa-4x")
+                    div(class="dropdown-menu" aria-labelledby="supportedContentDropdown")
+                        a(class="dropdown-item" href="/u/perfil")
+                            i(class="fa fa-user fa-fw faa-flash")
+                            | #{session.nome}
+                        div(class="dropdown-divider")
+                        a(href="/sair", class="dropdown-item faa-parent animated-hover")
+                            i(class="fa fa-sign-out fa-fw faa-flash")
+                            | Sair
+
 block script
     script.
         function menuMobile(x) {

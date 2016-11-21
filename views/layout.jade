@@ -13,7 +13,8 @@ html
         title= title
     else
         title Ceu.Cloud
-  body
+    block head
+  body(class="fade-in")
     if isLogged
         include partials/menu
 

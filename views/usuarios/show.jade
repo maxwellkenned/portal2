@@ -1,28 +1,34 @@
 extends ../layout
 
 block content
-    br
-    h1 #{dados.nome}
-    hr
-    p
-        b E-mail: #{dados.email}
-    p
-        b Site: #{dados.site}
-    p
-        b Data de Cadastro: #{moment(dados.data_cadastro).format('DD/MM/YYYY HH:mm:ss')}
-    br
-    form(method="POST", action="/usuarios/delete/#{dados._id}", role="form", id="excluir-form")
-        a(href="/usuarios", class="btn btn-primary") Voltar
-
-        button(type="submit", class="btn btn-danger margin-l") Excluir
-    br
+    div(class="col-sm-8 col-md-8 col-md-offset-2 col-sm-offset-2")
+        div(class="panel panel-info")
+            div(class="panel-heading")
+                div(class="panel-title mt-1")
+                    h1 Perfil
+            div(class="panel-body")
+                form(method="POST", action="/usuarios/edit/#{dados._id}", role="form")
+                    div(class="form-group")
+                        label(for="id") ID
+                        input(type="id", class="form-control", id="id", name="id", placeholder="", value="#{dados._id}" disabled)
+                    div(class="form-group")
+                        label(for="nome") Nome
+                        input(type="text", class="form-control", id="nome", name="nome", placeholder="Infome o nome", required, autofocus, value="#{dados.nome}")
+                    div(class="form-group")
+                        label(for="sobrenome") Sobrenome
+                        input(type="text", class="form-control", id="sobrenome", name="sobrenome", placeholder="Infome o sobrenome", value="#{dados.sobrenome ? dados.sobrenome : ''}")
+                    div(class="form-group")
+                        label(for="email") E-mail
+                        input(type="email", class="form-control", id="email", name="email", placeholder="Infome o E-mail", value="#{dados.email}")
+                    div(class="form-group")
+                        div(id="btn-salvar" class="col-md-4 col-sm-4 col-xs-4")
+                            button(type="submit" class="btn btn-success") Salvar
+                        div(id="btn-voltar" class="col-md-4 col-sm-4 col-xs-4")
+                            a(href="/usuarios", class="btn btn-primary") Voltar
 block script
-    script(type="text/javascript").
-        $(function(){
-            $('#excluir-form').submit(function(){
-                var pergunta = confirm('Você tem certeza que dejesa excluir este usuário?');
-                if(!pergunta){
-                    return false;
-                }
-            });
-        });
+    if messages.erro
+        each msg in messages.erro   
+            script.
+                $(document).ready(function(){
+                        $.notify('#{msg}', 'error');
+                    });

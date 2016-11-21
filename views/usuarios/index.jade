@@ -2,8 +2,9 @@ extends ../layout
 
 block content
     h1 Usuarios
-    a(href="/usuarios/create", class="btn btn-success") Cadastro de usuários
-    a(href="/limparDiretorio", class="btn btn-warning") Limpar diretório de Usuários
+    div(class="form-group")
+    a(href="/usuarios/create", class="btn btn-success form-control") Cadastro de usuários
+    a(href="/limparDiretorio", class="btn btn-warning form-control") Limpar diretório de Usuários
     br
     if lista.length > 0
         div(class="table-responsive")

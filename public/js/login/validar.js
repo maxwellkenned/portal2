@@ -1,19 +1,25 @@
 $('#loginform').submit(function () {
-  let senha  = $('#login-password').val().length;
-  let email = $('#login-username').val().length;
-  if(email < 1 && senha < 1){
+  let senha  = $('#login-password').val();
+  let email = $('#login-username').val();
+  if(email.length < 1 && senha.length < 1){
     $('#login-username').notify('E-mail e senha não informados', 'error');
     $('#login-username').focus();
     return false;
-  } else if(email < 1){
+  } else if(email.length < 1){
     $('#login-username').notify('E-mail não informada', 'error');
     $('#login-username').focus();
     return false;
-  } else if(senha <1){
+  } else if(senha.length <1){
     $('#login-password').notify('Senha não informada','error', { position:"bottom"});
     $('#login-password').focus();
     return false;
   }
+  $.post('/',{
+    email: email, senha: senha
+  }).done(function( data ) {
+    .html(data);
+  });
+  return false;
 });
 $('#register-form').submit(function(){
   let nome =  $('#nome').val();

@@ -2,6 +2,7 @@ var fs = require('fs');
 
 module.exports = function (app) {
     'use strict';
+    var io = app.get('io');
     var Usuario = app.models.usuarios;
     var chatCtrl = app.controllers.chatInit;
     var validacao = require('../validations/autentication');

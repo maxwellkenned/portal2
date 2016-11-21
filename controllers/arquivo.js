@@ -54,7 +54,6 @@ module.exports = function (app) {
                             });
                         }
                     });
-                    
                 });
                 if(err) {
                     return res.end("Error uploading file.");
@@ -76,7 +75,7 @@ module.exports = function (app) {
             Arquivo.find({'_idUsuario': user._id}, function (err, data) {
                 if(err) console.log('Erro: '+err);
                 res.json(data);
-            });
+            }).sort({'ext': 1, 'data_upload': -1});
         },
         download: function (req, res) {
             var file = req.params.file;
@@ -114,6 +113,70 @@ module.exports = function (app) {
                 });
             }
             }
+        },
+        criarPasta: function(req, res){
+            var nomePasta = req.body.nomePasta;
+            var user = app.get('user');
+            var pasta = 'public/uploads/'+user._id+'/'+nomePasta+'/';
+            var model = new Arquivo();
+                model._idUsuario = user._id;
+                model.originalname = nomePasta;
+                model.destination = pasta;
+                model.filename = nomePasta;
+                model.mimetype = 'folder';
+                model.path = pasta;
+                model.ext = '/';
+                Arquivo.findOne({'_idUsuario': model._idUsuario,'filename': model.filename, 'path': model.path},function (err, dados){
+                    console.log('log1:'+dados);
+                    if(dados){
+                        console.log('log2: '+dados);
+                        model.update({upsert: true}, function(err){
+                            if(err){
+                                req.flash('error', 'Não foi possível realizar o Upload');
+                            } else {
+                                req.flash('info', 'Arquivo atualizado com sucesso');
+                            }
+                        });
+                    } else{
+                        model.save(function(err){
+                            console.log('log3: '+err);
+                            if(err){
+                                console.log('Erro: '+err);
+                            } else {
+                                console.log('log4: '+pasta);
+                                if(!fs.existsSync(pasta)){
+                                    fs.mkdir(pasta, function(args){
+                                    });
+                                }
+                                req.flash('info', 'pasta criada com sucesso');
+                            }
+                        });
+                    }
+                });
+        },
+        remove: function(req, res){
+            let filename = '';
+            let destination = '';
+            let pasta = '';
+                Arquivo.findById({_id: req.params.id}, function(err, data){
+                    if(data){
+                        filename = data.filename;
+                        destination = data.destination; 
+                    }
+                });
+                Arquivo.remove({_id: req.params.id}, function(err){
+                    if (err) {
+                        req.flash('erro', 'Erro ao excluir arquivo: ' + err);
+                        res.redirect('/home');
+                    } else {
+                    if(fs.existsSync(destination)){
+                        pasta = destination + filename;
+                        fs.unlinkSync(pasta);
+                    }
+                    req.flash('info', 'Arquivo excluído com sucesso!');
+                    res.redirect('/home');
+                }
+                });
         }
     };
     return ArquivoController;

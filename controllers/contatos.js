@@ -29,6 +29,7 @@ module.exports = function (app) {
                     model.nome = data.nome;
                     model.sobrenome = data.sobrenome;
                     model.email = data.email;
+                    model._idContato = data._id;
                     model._idUsuario = user._id;
                     Contatos.findOne({'email': model.email}, function (err, data) {
                         if (data) {

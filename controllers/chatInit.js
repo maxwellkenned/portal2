@@ -1,11 +1,16 @@
 module.exports = function (app) {
     var Chat = app.models.chat;
     var io = app.get('io');
-
+    var cont = 1;
     io.on('connection', function (socket) {
-        socket.emit('welcome', ExibirMsg());
-       // socket.broadcast.emit('Contato', {userid: userid});
-        
+        var user = app.get('user');
+        if(user && cont < 2){
+            var nome = user.nome;
+            console.log(nome+' user conected!!')
+            io.emit('logon', nome);
+            socket.emit('login', 'Você');
+            cont++;
+        }        
         socket.on('chat message', function(dados){
             io.emit('chat message', dados);
             SalvarMsg(dados);

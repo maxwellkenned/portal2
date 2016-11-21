@@ -13,15 +13,15 @@ block content
     
 block script
   script(type='text/javascript', src="https://cdn.socket.io/socket.io-1.2.0.js")
-  script(type='text/javascript', src="/js/chat.js")
-  script(type='text/javascript', src="/js/files.js")
-  script(type='text/javascript', src="/js/contatos.js")
-  
+  script(type='text/javascript', src="/js/home/chat.js")
+  script(type='text/javascript', src="/js/home/files.js")
+  script(type='text/javascript', src="/js/home/contatos.js")
   script.
     var socket = io();
     $('.chat').submit(function () {
       var usuario = '#{session.nome}';
       var id = '#{session._id}';
+      var email = '#{session.email}';
       var texto = $('#m').val();
       var msg = texto;
       var dados = {msg: msg, id: id, nome: usuario};
@@ -34,22 +34,6 @@ block script
       }
       return false;
     });
-    socket.on('welcome', function() {
-      $('#messages').append($('<li class="text-center col-md-12 col-xs-12">').text('Bem-vindo ao Céu.Cloud'));
-      var div = $("#messages");
-      div.scrollTop(div.prop('scrollHeight'));
-    });
-    socket.on('chat message', function(msg){
-      var str = msg.id.slice(0,6);
-      var d = new Date();
-      var data = jQuery.format.prettyDate(d);
-      $('#messages').append($('<li id="msgNome" class="col-md-10 col-xs-10" style="color:grey;">').text(msg.nome + " "+ data));
-      $('#msgNome').append($('<span class="caret pull-right"></span>'));
-      $('#messages').append($('<li class="chatMsg col-md-10 col-xs-10" style="background-color:#'+str+';">').text(msg.msg));
-      var div = $("#messages");
-      div.scrollTop(div.prop('scrollHeight'));
-    });
-    // AVISOS
   if messages.info
     script.
         $(document).ready(function(){

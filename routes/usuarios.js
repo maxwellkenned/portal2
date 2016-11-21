@@ -14,4 +14,5 @@ module.exports = function (app) {
         .get(autAdmin, usuarios.edit)
         .post(usuarios.update);
     app.get('/limparDiretorio', autAdmin, usuarios.limparDir);
+    app.get('/u/perfil', usuarios.perfil);
 };

@@ -8,6 +8,7 @@ module.exports = function () {
 
     var contatoSchema = mongoose.Schema({
         _idUsuario: {type: String, trim: true},
+        _idContato: {type: String, trim: true},
         nome: {type: String, trim: true},
         sobrenome: {type: String, trim: true},
         email: {type: String, trim: true, unique: true},

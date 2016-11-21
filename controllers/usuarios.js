@@ -4,7 +4,7 @@ module.exports = function (app) {
     var validacao = require('../validations/usuarios');
     var deleteDirR = require('./helpers/delete-dir-r.js');
     var Usuario = app.models.usuarios;
-
+    var Arquivo = app.models.arquivo;
     var UsuariosController = {
         index: function (req, res) {
             Usuario.find(function (err, dados) {
@@ -108,23 +108,48 @@ module.exports = function (app) {
         },
         limparDir: function (req, res) {
         let pasta = 'public/uploads/';
+        let user = app.get('user');
         let files = [];
+        let files2 = [];
         let curPath = '';
-        let cont = 0, c2 = 0;
+        let curPath2 = '';
         let excluir = true;
+        let excluir2 = true;
         files = fs.readdirSync(pasta);
-        files.forEach(function(file, index){
-            Usuario.findById(file, function (err, dados){
+        files.forEach(function(file){
+            console.log('log0: '+file);
+            Arquivo.findOne({'filename': file}, function (err, dados){
                 if(dados){
-                    if (file == dados._id){
-                         excluir = false;
+                    console.log('log1: '+dados.path);
+                    if (file == dados.filename){
+                        excluir = false;
                     }
                 }
                 if(excluir){
                     curPath = pasta + '/' + file;
-                    if (fs.lstatSync(curPath).isDirectory()) {
-                        deleteDirR(curPath, function (err){
-
+                    if(fs.lstatSync(curPath).isDirectory()) {
+                        files2 = fs.readdirSync(curPath);
+                        files2.forEach(function(file2){
+                            console.log('log1: '+file2);
+                            Arquivo.findOne({'filename': file2}, function (err, dados2){
+                                if(dados2){
+                                    console.log('log1: '+dados2.path);
+                                    if (file2 == dados2.filename){
+                                        excluir2 = false;
+                                    }
+                                }
+                                if(excluir2){
+                                    curPath2 = curPath + '/' + file2;
+                                    if(fs.lstatSync(curPath2).isDirectory()) {
+                                        deleteDirR(curPath2, function (err){
+                                        });
+                                    } else {
+                                        fs.unlinkSync(curPath2);
+                                    }
+                                } else {
+                                    console.log('Arquivo cadastrado!');
+                                }
+                            });
                         });
                     } else {
                         fs.unlinkSync(curPath);
@@ -132,12 +157,22 @@ module.exports = function (app) {
                 } else {
                     console.log('Usuário cadastrado!');
                 }
-            excluir?cont++:cont;
             });
         });
             req.flash('info','Diretórios limpos com sucesso!');
             res.redirect('/usuarios');
-        }
+        },
+        perfil: function (req, res) {
+            var user = app.get('user');
+            Usuario.findById(user._id, function (err, dados) {
+                if (err) {
+                    req.flash('erro', 'Erro ao visualizar perfil: ' + err);
+                    res.redirect('/home');
+                } else {
+                    res.render('usuarios/show', {dados: dados, title: 'Perfil'});
+                }
+            });
+        },
     };
     return UsuariosController;
 };

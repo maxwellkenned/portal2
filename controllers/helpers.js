@@ -18,10 +18,12 @@ module.exports = function (app) {
             });
          }
         });
-        fs.exists(files, (exists) => {
+        fs.exists(files, function(exists){
             if(!exists){
                 fs.mkdir(files, function(args){
                 });
+            }else{
+                console.log('erro');
             }
         });
     }

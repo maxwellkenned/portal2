@@ -1,5 +1,6 @@
 $(function () {
     $('#busca-contato-form').submit(function(){
+    $('.panel-body').LoadingOverlay("show");
     var $busca = $("input[name='busca']").val();
     var $nome = $("input[name='nome']");
     var $sobrenome = $("input[name='sobrenome']");
@@ -24,6 +25,7 @@ $(function () {
             console.log('data.nome'+data._id);
         });
     }
+        $('.panel-body').LoadingOverlay("hide");
         return false;
     });
 });
