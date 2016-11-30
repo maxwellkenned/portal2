@@ -2,6 +2,55 @@ html {
     position: relative;
     min-height: 100%;
 }
+body {
+    margin: 0 0 40px; /* altura do seu footer */
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding-top: 50px;
+    background-position: 0 0;
+     background-image: url('../images/bg.jpg');
+    animation: animatedBackground 90s linear infinite;
+    -webkit-animation: animatedBackground 90s linear infinite;/* Safari 4.0 - 8.0 */
+    -moz-animation: animatedBackground 90s linear infinite;
+}
+footer {
+    position: absolute; 
+    bottom: 0px; 
+    width: 100%;
+    background-color: #ffffff60;
+}
+a {
+  color: #00B7FF;
+}
+
+.chat{
+    
+}
+.chat .navbar{
+    min-height: 30px;
+    margin-bottom: 10px;
+}
+.chat .navbar-toggle{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* Safari 4.0 - 8.0 */
+@keyframes animatedBackground {
+    from { background-position: 0 0; }
+    to { background-position: 100% 0; }
+}
+@-webkit-keyframes animatedBackground {
+    from { background-position: 0 0; }
+    to { background-position: 100% 0; }
+}
+
+.container-fluid{
+   background-color: white;
+}
+#page-login .container-fluid{
+   background-color: transparent;
+}
+
 @media (max-width: 768px) { 
 body {
     padding-top: 5px !important;
@@ -17,9 +66,14 @@ margin-bottom: 10px;
 @media (min-width: 769px){
 #page-login{
     padding-right:80px;
+    background-image: url('../images/bg.jpg');
 }
 }
-
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
 /* make keyframes that tell the start state and the end state of our object */
 @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -45,19 +99,7 @@ margin-bottom: 10px;
   animation-delay: 0.7s;
 }
  }
-body {
-    margin: 0 0 40px; /* altura do seu footer */
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    padding-top: 50px;
-}
-footer {
-    position: absolute; 
-    bottom: 0px; 
-    width: 100%;
-}
-a {
-  color: #00B7FF;
-}
+
 
 .divisor{
     height: 1px;
@@ -148,16 +190,16 @@ form.chat button {
     background: #7c1c8c; 
     border: none; 
 }
-#messages { 
+#conversa, #participantes, #antigas { 
     list-style-type: none; 
     margin: 0; 
     padding: 0; 
-    height:400px; 
-    max-height:400px; 
     overflow-y:auto;
+    height:340px; 
+    max-height:340px; 
 }
-#messages li { padding: 1px 10px;}
-#messages li:nth-child(odd) {  }
+/*#conversa li { padding: 1px 10px;}
+*/#messages li:nth-child(odd) {  }
 
 #content-right {
     border-left: 1px solid #2f2f2f1a;

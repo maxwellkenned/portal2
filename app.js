@@ -15,7 +15,8 @@ var express = require('express'),
     http = require('http').Server(app),
     io = require('socket.io')(http),
     mongoose = require('mongoose'),
-    fs = require('fs');
+    fs = require('fs'),
+    promise = require('promise');
 
 
 //conexão com o mongodb
@@ -48,7 +49,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
 app.use(cookieParser());
-app.use(session({secret: 'portal', resave: false, saveUninitialized: true}));
+app.use(session({secret: 'portal', cookie:{maxAge: 10 * 60 * 1000}, resave: false, saveUninitialized: true}));
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(flash());
 

@@ -11,7 +11,7 @@ nav(class="navbar navbar-default navbar-fixed-top col-xs-12 col-sm-12 col-md-12"
                 |Ceu.Cloud
         div(id="navbar" class="navbar-collapse collapse")
             ul(class="nav navbar-nav")
-                li(class="active")
+                li
                     a(href="/", class="faa-parent animated-hover")
                         i(class="fa fa-home fa-fw faa-wrench faa-slow") 
                         |Home
@@ -27,7 +27,7 @@ nav(class="navbar navbar-default navbar-fixed-top col-xs-12 col-sm-12 col-md-12"
                             |Administrar usuarios
                 li(role="separator", class="divider divisor")
                 li(class="hidden-md-up")
-                    a(class="dropdown-item" href="#") 
+                    a(class="dropdown-item" href="/u/perfil") 
                         i(class="fa fa-user fa-fw faa-flash")
                         | #{session.nome}
                     a(href="/sair", class="dropdown-item faa-parent animated-hover")

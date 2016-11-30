@@ -1,31 +1,32 @@
 extends ../layout
 
 block content
-    div(class="col-sm-8 col-md-8 col-md-offset-2 col-sm-offset-2")
-        div(class="panel panel-info")
-            div(class="panel-heading")
-                div(class="panel-title")
-                    h2 Criar conta
-            div(class="panel-body")
-                form(id="register-form" method="POST", action="/usuarios/create", role="form")
-                    div(class="form-group")
-                        label(for="nome") Nome
-                        input(type="text", class="form-control", id="nome", name="nome", placeholder="Digite seu nome", value="#{user.nome || ''}", required autofocus)
-                    div(class="form-group")
-                        label(for="sobrenome") Sobrenome
-                        input(type="text", class="form-control", id="sobrenome", name="sobrenome", placeholder="Digite seu sobrenome", value="#{user.sobrenome || ''}")
-                    div(class="form-group")
-                        label(for="email") E-mail
-                        input(type="email", class="form-control", id="email", name='email', placeholder="Digite seu email. Ex: youremail@email.com", value="#{user.email || ''}", required)
-                    div(class="form-group")
-                        label(for="senha") Senha
-                        input(type="password", class="form-control", id="senha", name="senha", placeholder="Digite sua senha", required)
-                    div(class="form-group")
-                        label(for="confirma_senha") Confirmar senha
-                        input(type="password", class="form-control", id="confirma_senha" name="confirma_senha", placeholder="Digite a senha novamente", required)
-                    button(type="submit" class="btn btn-success") Salvar
-                    div(class="pull-right")
-                        a(href="/" class="btn btn-link") voltar ao login
+    div(class="container-fluid")
+        div(class="col-sm-8 col-md-8 col-md-offset-2 col-sm-offset-2")
+            div(class="panel panel-info")
+                div(class="panel-heading")
+                    div(class="panel-title")
+                        h2 Criar conta
+                div(class="panel-body")
+                    form(id="register-form" method="POST", action="/usuarios/create", role="form")
+                        div(class="form-group")
+                            label(for="nome") Nome
+                            input(type="text", class="form-control", id="nome", name="nome", placeholder="Digite seu nome", value="#{user.nome || ''}", required autofocus)
+                        div(class="form-group")
+                            label(for="sobrenome") Sobrenome
+                            input(type="text", class="form-control", id="sobrenome", name="sobrenome", placeholder="Digite seu sobrenome", value="#{user.sobrenome || ''}")
+                        div(class="form-group")
+                            label(for="email") E-mail
+                            input(type="email", class="form-control", id="email", name='email', placeholder="Digite seu email. Ex: youremail@email.com", value="#{user.email || ''}", required)
+                        div(class="form-group")
+                            label(for="senha") Senha
+                            input(type="password", class="form-control", id="senha", name="senha", placeholder="Digite sua senha", required)
+                        div(class="form-group")
+                            label(for="confirma_senha") Confirmar senha
+                            input(type="password", class="form-control", id="confirma_senha" name="confirma_senha", placeholder="Digite a senha novamente", required)
+                        button(type="submit" class="btn btn-success") Salvar
+                        div(class="pull-right")
+                            a(href="/" class="btn btn-link") voltar ao login
 block script
     script(src='/js/login/validar.js')
     // pop up de mensagem

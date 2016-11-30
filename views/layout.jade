@@ -14,12 +14,10 @@ html
     else
         title Ceu.Cloud
     block head
-  body(class="fade-in")
+  body
     if isLogged
         include partials/menu
-
-    div(class="container-fluid")
-        block content
+    block content
 
     include partials/footer
     include partials/scripts

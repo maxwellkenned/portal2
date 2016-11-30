@@ -2,30 +2,32 @@ var fs = require('fs');
 var multer = require('multer');
 var util = require('util');
 var deleteDirR = require('./helpers/delete-dir-r.js');
+var Promise = require('promise');
+var _ = require('lodash');
 module.exports = function (app) {
     'use strict';
-    var storage = multer.diskStorage({
+    let storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            var user = app.get('user');
-            var dir = 'public/uploads/'; // give path
-            var files = dir + user._id +'/';
+            let user = app.get('user');
+            let dir = 'public/uploads/'; // give path
+            let files = dir + user._id +'/';
             cb(null, files);
         },
         filename: function (req, file, cb) {
-            var ext = file.originalname.substr(file.originalname.lastIndexOf('.')+1); cb(null, file.originalname);
+            let ext = file.originalname.substr(file.originalname.lastIndexOf('.')+1); cb(null, file.originalname);
         }
     });
-    var upload = multer({storage: storage}).array('file');
-    var Arquivo = app.models.arquivo;
-    var Helpers = app.controllers.helpers;
+    let upload = multer({storage: storage}).array('file');
+    let Arquivo = app.models.arquivo;
+    let Helpers = app.controllers.helpers;
     
-    var ArquivoController = {
+    let ArquivoController = {
         upload: function (req, res) {
-            var user = app.get('user');
+            let user = app.get('user');
             upload(req, res, function(err){
-                var arquivos = req.files;
+                let arquivos = req.files;
                 arquivos.forEach(function(data){
-                    var model = new Arquivo();
+                    let model = new Arquivo();
                     model._idUsuario = user._id;
                     model.originalname = data.originalname;
                     model.encoding = data.encoding;
@@ -63,32 +65,100 @@ module.exports = function (app) {
         },
         view: function (req, res) {
             file = req.params.file;
-            var user = app.get('user');
-            var dir = 'public/uploads/'; // give path
-            var files = dir + user._id +'/';
-            var img = fs.readFileSync(files + file);
+            let user = app.get('user');
+            let dir = 'public/uploads/'; // give path
+            let files = dir + user._id +'/';
+            let img = fs.readFileSync(files + file);
             res.writeHead(200, {'Content-Type': 'image/jpg'});
             res.end(img, 'binary');
         },
         show: function (req, res) {
-            var user = app.get('user');
-            Arquivo.find({'_idUsuario': user._id}, function (err, data) {
-                if(err) console.log('Erro: '+err);
-                res.json(data);
-            }).sort({'ext': 1, 'data_upload': -1});
+            let user = app.get('user');
+            let dir = 'public/uploads/'+user._id+'/';
+            var data = fs.readdirSync(dir);
+            var itens = {}, item = {};
+            function read(){
+                return new Promise(function(fulfill, reject){
+                    data.forEach(function(dados){
+                    fulfill(Arquivo.find({'destination': dir}, function(err, data2){ return data2;}).sort({'ext': 1, 'data_upload': -1}));
+                    });
+                    if(!itens) reject();
+                });
+            };
+            console.log('DATA: '+util.inspect(data));
+            console.log('DIR: '+util.inspect(dir));
+            console.log('READ: '+util.inspect(read()));
+            
+            read()
+            .then(function(file){
+            console.log('DATA3: '+util.inspect(_.filter(file)));
+            res.json(file);
+            });
+        },
+        showPasta: function (req, res) {
+            let user = app.get('user');
+            let dir = 'public/uploads/'+ user._id +'/'+ req.params.pasta +'/';
+            let dados = new Arquivo();
+            let itens;
+            if (fs.lstatSync(dir).isDirectory()){
+                itens = fs.readdirSync(dir);
+                itens.forEach(function(item){
+                    Arquivo.findOne({'destination': dir, 'filename': item}, function (err, data) {
+                    if(err) console.log('Erro: '+err);
+                    dados.filename = data.filename;
+                    dados.data_upload = data.data_upload;
+                    dados.ext = data.ext;
+                    dados.size = data.size;
+                    }).sort({'ext': 1, 'data_upload': -1});
+                });
+                res.json(dados);
+            } else {
+                this.download(req, res);
+            }
+                
+        },
+        showPastas: function(req, res) {
+            let user = app.get('user');
+            let dir = req.body.dir;
+            if(dir == 'public/uploads/'){
+                dir = 'public/uploads/'+user._id+'/';
+            }
+            console.log('dir pastas: '+ dir);
+            let r = '<ul class="jqueryFileTree" style="display: none;">';
+            try {
+                r = '<ul class="jqueryFileTree" style="display: none;">';
+                let dirDecoded = decodeURIComponent(dir);
+                let files = fs.readdirSync(dirDecoded);
+                files.forEach(function(f){
+                    let ff = dirDecoded + decodeURIComponent(f);
+                    let ffEncoded = dir + encodeURIComponent(f);
+                    let stats = fs.statSync(ff);
+                    if (stats.isDirectory()) { 
+                        r += '<li class="directory collapsed"><a href="#" rel="' + ffEncoded + '/">' + f + '</a></li>';
+                    } else {
+                        let e = f.split('.')[1];
+                        r += '<li class="file ext_' + e + '"><a href="#" rel='+ ffEncoded + '>' + f + '</a></li>';
+                    }
+                });
+                r += '</ul>';
+            } catch(e) {
+                r += 'Could not load directory: ' + dirDecoded;
+                r += '</ul>';
+            }
+            res.send(r);
         },
         download: function (req, res) {
-            var file = req.params.file;
-            var user = app.get('user');
-            var dir = 'public/uploads/'; // give path
-            var files = dir + user._id +'/';
-            var pasta = files+file;
-            res.download(pasta); // magic of download fuction
+            let file = req.params.file;
+            let user = app.get('user');
+            let dir = 'public/uploads/'; // give path
+            let files = dir + user._id +'/';
+            let pasta = files+file;
+            res.download(pasta); // magic of download fuctio
         },
         clearPasta: function (req, res, id) {
-            var dir = 'public/uploads/';
-            var item = [];
-            var pasta = dir + id + '\\';
+            let dir = 'public/uploads/';
+            let item = [];
+            let pasta = dir + id + '/';
             if(fs.existsSync(pasta)){
                 fs.readdir(pasta, function (err, data){
                     if(err){
@@ -115,10 +185,10 @@ module.exports = function (app) {
             }
         },
         criarPasta: function(req, res){
-            var nomePasta = req.body.nomePasta;
-            var user = app.get('user');
-            var pasta = 'public/uploads/'+user._id+'/'+nomePasta+'/';
-            var model = new Arquivo();
+            let nomePasta = req.body.nomePasta;
+            let user = app.get('user');
+            let pasta = 'public/uploads/'+user._id+'/'+nomePasta+'/';
+            let model = new Arquivo();
                 model._idUsuario = user._id;
                 model.originalname = nomePasta;
                 model.destination = pasta;
@@ -127,9 +197,7 @@ module.exports = function (app) {
                 model.path = pasta;
                 model.ext = '/';
                 Arquivo.findOne({'_idUsuario': model._idUsuario,'filename': model.filename, 'path': model.path},function (err, dados){
-                    console.log('log1:'+dados);
                     if(dados){
-                        console.log('log2: '+dados);
                         model.update({upsert: true}, function(err){
                             if(err){
                                 req.flash('error', 'Não foi possível realizar o Upload');
@@ -139,11 +207,8 @@ module.exports = function (app) {
                         });
                     } else{
                         model.save(function(err){
-                            console.log('log3: '+err);
                             if(err){
-                                console.log('Erro: '+err);
                             } else {
-                                console.log('log4: '+pasta);
                                 if(!fs.existsSync(pasta)){
                                     fs.mkdir(pasta, function(args){
                                     });
@@ -158,24 +223,44 @@ module.exports = function (app) {
             let filename = '';
             let destination = '';
             let pasta = '';
-                Arquivo.findById({_id: req.params.id}, function(err, data){
-                    if(data){
-                        filename = data.filename;
-                        destination = data.destination; 
-                    }
-                });
-                Arquivo.remove({_id: req.params.id}, function(err){
-                    if (err) {
+            var id = req.params.id;
+                function remover(id_){
+                    return new Promise(function(fulfill, reject){
+                        Arquivo.findById({'_id': id_}, function(err, data){
+                            if(err) reject(err);
+                            if(data){
+                                fulfill(data);
+                            }
+                        });
+                    });
+                };
+                remover(id)
+                .then(function(data2){
+                    filename = data2.filename;
+                    destination = data2.destination;
+                    Arquivo.remove({_id: req.params.id}, function(err){
+                    if (err)
                         req.flash('erro', 'Erro ao excluir arquivo: ' + err);
                         res.redirect('/home');
-                    } else {
-                    if(fs.existsSync(destination)){
+                    });
+                })
+                .then(function(){
+                     if(fs.existsSync(destination)){
                         pasta = destination + filename;
-                        fs.unlinkSync(pasta);
+                        if(fs.existsSync(pasta)){
+                            if (fs.lstatSync(pasta).isDirectory()){
+                                fs.rmdirSync(pasta);
+                                console.log('remover pasta: '+pasta);
+                            }else {
+                                fs.unlinkSync(pasta);
+                                console.log('remover arquivo: '+pasta);
+                            }
+                        }
                     }
-                    req.flash('info', 'Arquivo excluído com sucesso!');
-                    res.redirect('/home');
-                }
+                })
+                .then(function(){
+                    req.flash('info', 'pasta criada com sucesso');
+                    req.redirect('/home');
                 });
         }
     };

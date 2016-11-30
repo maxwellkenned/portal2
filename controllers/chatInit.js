@@ -1,38 +1,53 @@
 module.exports = function (app) {
     var Chat = app.models.chat;
     var io = app.get('io');
-    var cont = 1;
-    io.on('connection', function (socket) {
+    
+    /* criar a conexão por websocket */
+    io.on('connection', function(socket){
         var user = app.get('user');
-        if(user && cont < 2){
-            var nome = user.nome;
-            console.log(nome+' user conected!!')
-            io.emit('logon', nome);
-            socket.emit('login', 'Você');
-            cont++;
-        }        
-        socket.on('chat message', function(dados){
-            io.emit('chat message', dados);
-            SalvarMsg(dados);
+        console.log('Usuário conectou');
+        socket.on('disconnect', function(){
+            console.log('Usuário desconectou');
         });
+
+        socket.on('msgParaServidor', function(data){
+            console.log('Nome: '+user.nome);
+            /* dialogo */
+            socket.emit(
+                'msgParaCliente', 
+                {apelido: user.nome, mensagem: data.mensagem}
+            );
+
+            SalvarMsg(data);
+
+            socket.broadcast.emit(
+                'msgParaCliente', 
+                {apelido: user.nome, mensagem: data.mensagem}
+            );
+
+            /* participantes */
+            if(parseInt(data.apelido_atualizado_nos_clientes) == 0){
+                socket.emit(
+                    'participantesParaCliente', 
+                    {apelido: user.nome}
+                );
+
+                socket.broadcast.emit(
+                    'participantesParaCliente', 
+                    {apelido: user.nome}
+                );
+            }
+        });
+
     });
     var SalvarMsg = function (dados) {
         var model = new Chat();
-        model._idContato = dados.id;
-        model.nome = dados.nome;
-        model.texto = dados.msg;
+        var user = app.get('user');
+        model._idContato = user._id;
+        model.nome = user.nome;
+        model.texto = dados.mensagem;
         model.save(function (err) {
             if (err) console.log('Erro: '+err);
         });
     };
-
-    var ExibirMsg = function () {
-        Chat.find(function (err, dados) {
-                if (err) {console.log('Erro: '+err)}
-                else {
-                    return dados;
-                }
-            });
-    };
 };
-

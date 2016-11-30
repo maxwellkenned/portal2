@@ -16,10 +16,7 @@ $('#loginform').submit(function () {
   }
   $.post('/',{
     email: email, senha: senha
-  }).done(function( data ) {
-    .html(data);
   });
-  return false;
 });
 $('#register-form').submit(function(){
   let nome =  $('#nome').val();

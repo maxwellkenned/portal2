@@ -1,7 +1,7 @@
 $(function(){
-    populateTable();
-    var input = document.getElementById("input-file");
+    populateTable('/show');
     
+    var input = document.getElementById("input-file");
     $('#input-file').change(function(){
        var file = input.files;
        var cont = input.files.lenght;
@@ -31,6 +31,9 @@ $(function(){
     
 });
 
+$('#modal-criarPasta').on('shown.bs.modal', function () {
+  $('#nomePasta').focus();
+});
 
 $('#form-upload').submit(function(){
     var cont = $("#input-file")[0].files.length;
@@ -41,36 +44,33 @@ $('#form-upload').submit(function(){
 });
 
 $('#criar-pasta').submit(function(){
+    var nomePasta = $('#nomePasta').val();
+    if(!nomePasta){
+        $('#nomePasta').notify('Informe o nome da pasta', 'error');
+        return false;
+    }
     criarPasta();
-    clearTable();
-    populateTable();
     return false;
 });
 
 function criarPasta(){
     var nomePasta = $('#nomePasta').val();
-    if(nomePasta.length > 0){
-        $.post('/pasta/criar', {nomePasta: nomePasta}, 
-            function(){
-            //$(location).attr("href", './home');
-        });
-    }
-    $('.bd-example-modal-sm').modal('hide');
+    $.post('/pasta/criar', {nomePasta: nomePasta});
+    $('#modal-criarPasta').modal('hide');
+    populateTable('/show');
+    populateTable('/show');
+    $.notify('Pasta criada com sucesso', 'success');
 };
 
 
-function removeFile(data){
-    $(data).remove();
-    return false;
+function showPasta(nome){
+    let pasta = "/p/"+nome;
+    populateTable(pasta);
 };
 
-function clearTable(){
-    $('#tr-item').remove();
-};
-
-function populateTable(){
+function populateTable(pasta){
     let tableContent = '';
-    $.get('/show', function (data) {
+    $.get(pasta, function (data) {
         if(!data){
             $('#div-arq').hide();
         }else {
@@ -83,6 +83,7 @@ function populateTable(){
                 if(data[item].ext == '/'){
                     tamanho = '';
                     nome += '/'; 
+                    tipo = 'directory';
                     icon = 'folder';
                 } else {
                     tamanho = filesize(data[item].size,{round:0});
@@ -91,7 +92,7 @@ function populateTable(){
             
             //tableContent += '<tr id="tr-id-'+i+'" class="tr-class-'+i+'" data-title="bootstrap table">';
             tableContent += '<tr id="tr-item">';
-            tableContent += '<td><i class="fa fa-'+icon+'" aria-hidden="true"></i></td>'
+            tableContent += '<td class="ext_'+tipo+'"></td>'
             tableContent += '<td><a href="'+/download/+nome+'">'+nome+'</a></td>';
             tableContent += '<td>'+tipo+'</td>';
             tableContent += '<td>'+dataFormatada+'</td>';

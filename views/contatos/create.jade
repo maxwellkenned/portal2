@@ -1,31 +1,32 @@
 extends ../layout
 
 block content
-    div(id='contatos')
-        div(class="col-xs-12 col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3" style="padding-top:40px;")
-            div(class="panel panel-info")
-                div(class="panel-heading")
-                    div(class="panel-title col-lg")
-                        h3 Adiciona contato
-                    div(class="col-lg")
-                        form(id="busca-contato-form" method="POST", action="", role="form")
-                            div(class="input-group")
-                                input(id="busca-contato-input" name="busca" type="text" class="form-control" placeholder="pesquisar contato...")
-                                span(class="input-group-btn")
-                                    button(id="busca-contato-button" class="btn btn-secondary" type="submit")
-                                        i(class="fa fa-search fa-fw faa-wrench faa-slow")
-                div(class="panel-body")
-                    form(id="" method="POST", action="/contatos/create", role="form")
-                        div(class="form-group")
-                            label nome
-                            input(type="text", class="form-control", id="nome", name="nome", disabled)
-                            label Sobrenome
-                            input(type="text", class="form-control", id="sobrenome", name="sobrenome", disabled)
-                            label E-mail
-                            input(type="text", class="form-control", id="email", name='email', disabled)
-                        a(id="adicionar" href="#" class="btn btn-success") Adicionar
-                        div(class="pull-right")
-                            a(href="/" class="btn btn-link") voltar
+    div(class="container-fluid")
+        div(id='contatos')
+            div(class="col-xs-12 col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3" style="padding-top:40px;")
+                div(class="panel panel-info")
+                    div(class="panel-heading")
+                        div(class="panel-title col-lg")
+                            h3 Adiciona contato
+                        div(class="col-lg")
+                            form(id="busca-contato-form" method="POST", action="", role="form")
+                                div(class="input-group")
+                                    input(id="busca-contato-input" name="busca" type="text" class="form-control" placeholder="pesquisar contato...")
+                                    span(class="input-group-btn")
+                                        button(id="busca-contato-button" class="btn btn-secondary" type="submit")
+                                            i(class="fa fa-search fa-fw faa-wrench faa-slow")
+                    div(class="panel-body")
+                        form(id="" method="POST", action="/contatos/create", role="form")
+                            div(class="form-group")
+                                label nome
+                                input(type="text", class="form-control", id="nome", name="nome", disabled)
+                                label Sobrenome
+                                input(type="text", class="form-control", id="sobrenome", name="sobrenome", disabled)
+                                label E-mail
+                                input(type="text", class="form-control", id="email", name='email', disabled)
+                            a(id="adicionar" href="#" class="btn btn-success") Adicionar
+                            div(class="pull-right")
+                                a(href="/" class="btn btn-link") voltar
 block script
     script(src='/js/contato/js.js')
     // pop up de mensagem

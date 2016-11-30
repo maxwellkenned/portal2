@@ -1,39 +1,75 @@
 extends ../layout
 
+block head
+  link(rel='stylesheet', href='/css/chat.css')
+
 block content
-  div(id="index")
-    div(style='margin-top:30px')
-      div(class='row')
-        div(id="content-left" class='col-md-3 content-index')
-          include partials/tree
-        div(id="content-mid" class='col-md-6 content-index')
-          include partials/file
-        div(id="content-right" class='col-md-3 content-index')
-          include partials/chat
+  div(class="container-fluid")
+    div(id="index")
+        div(style='margin-top:30px')
+          div(class='row')
+            div(id="content-left" class='col-md-3 content-index')
+              include partials/tree
+            div(id="content-mid" class='col-md-6 content-index')
+              include partials/file
+            div(id="content-right" class='col-md-3 content-index')
+              include partials/chat
     
 block script
   script(type='text/javascript', src="https://cdn.socket.io/socket.io-1.2.0.js")
-  script(type='text/javascript', src="/js/home/chat.js")
   script(type='text/javascript', src="/js/home/files.js")
+  script(type='text/javascript', src="/js/home/tree.js")
   script(type='text/javascript', src="/js/home/contatos.js")
+  script(type='text/javascript', src="/js/home/chat.js")
+  script.
+    Pace.options = {
+      ajax: {
+        ignoreURLs: ['/socket.io', /./g]
+      }
+    };
   script.
     var socket = io();
-    $('.chat').submit(function () {
-      var usuario = '#{session.nome}';
-      var id = '#{session._id}';
-      var email = '#{session.email}';
-      var texto = $('#m').val();
-      var msg = texto;
-      var dados = {msg: msg, id: id, nome: usuario};
-      if(texto){
-        socket.emit('chat message', dados);
-        $('#m').val('');
-      }else{
-      $('#m').notify('Digite algo', 'info');
-      return false;
-      }
-      return false;
-    });
+    $('#enviar_mensagem').submit( function(){
+
+        socket.emit(
+          'msgParaServidor',
+          { 
+            mensagem: $('#mensagem').val(),
+            apelido_atualizado_nos_clientes : $('#apelido_atualizado_nos_clientes').val()
+          }
+        );  
+
+        $('#mensagem').val("");
+        $('#apelido_atualizado_nos_clientes').val(1);
+        return false;
+      });
+      
+
+      socket.on('msgParaCliente', function(data){
+        var html = '';
+
+        html += '<div class="dialogo">';
+          html += '<h4>' + data.apelido + '</h4>';
+          html += '<p>' + data.mensagem + '</p>';
+        html += '</div>';
+
+        $('#dialogos').append(html);
+        var divDialog = document.getElementById('conversa');
+        var divAlt = divDialog.scrollHeight
+        divDialog.scrollTo(0, divAlt);
+      });
+
+
+      socket.on('participantesParaCliente', function(data){
+        var html = '';
+
+        html += '<span class="participante">';
+          html += '<img src="images/ico_usuario.png">';
+          html += data.apelido;
+        html += '</span>';
+
+        $('#pessoas').append(html);
+      });
   if messages.info
     script.
         $(document).ready(function(){

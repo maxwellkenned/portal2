@@ -5,9 +5,11 @@ module.exports = function (app) {
     var autenticar = require('../middleware/autenticar');
     
     app.post('/upload', autenticar, arquivo.upload);
-    app.get('/uploads/:file', arquivo.view);
+    app.get('/uploads/:file', autenticar, arquivo.view);
     app.get('/show', arquivo.show);
-    app.get('/download/:file(*)', arquivo.download);
-    app.post('/pasta/criar', arquivo.criarPasta);
-    app.get('/file/remove/:id', arquivo.remove);
+    app.get('/download/:file(*)', autenticar, arquivo.download);
+    app.post('/pasta/criar', autenticar, arquivo.criarPasta);
+    app.get('/file/remove/:id', autenticar, arquivo.remove);
+    app.get('/p/:pasta(*)', autenticar, arquivo.showPasta);
+    app.post('/showPastas', autenticar, arquivo.showPastas);
 }

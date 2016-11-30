@@ -1,39 +1,40 @@
 extends ../layout
 
 block content
-    h1 Usuarios
-    div(class="form-group")
-    a(href="/usuarios/create", class="btn btn-success form-control") Cadastro de usuários
-    a(href="/limparDiretorio", class="btn btn-warning form-control") Limpar diretório de Usuários
-    br
-    if lista.length > 0
-        div(class="table-responsive")
-            table(class="table table-hover table-bordered table-condensed table-striped")
-                thead(class="thead-inverse")
-                    tr
-                        th ID
-                        th Nome
-                        th Sobronome
-                        th E-mail
-                        th Data de Cadastro
-                        th Ações
-                tbody
-                    each valor in lista
+    div(class="container-fluid")
+        h1 Usuarios
+        div(class="form-group")
+        a(href="/usuarios/create", class="btn btn-success form-control") Cadastro de usuários
+        a(href="/limparDiretorio", class="btn btn-warning form-control") Limpar diretório de Usuários
+        br
+        if lista.length > 0
+            div(class="table-responsive")
+                table(class="table table-hover table-bordered table-condensed table-striped")
+                    thead(class="thead-inverse")
                         tr
-                            td #{valor._id}
-                            td #{valor.nome}
-                            td #{valor.sobrenome}
-                            td #{valor.email}
-                            td #{moment(valor.data_cadastro).format('DD/MM/YYYY HH:mm:ss')}
-                            td 
-                                a(href="/usuarios/edit/#{valor._id}", class="btn btn-info btn-xs faa-parent animated-hover" data-toggle="tooltip" data-placement="auto" title="Vizualizar")
-                                    i(class="fa fa-search fa-fw faa-wrench faa-slow")
-                                //
-                                    a(href="/usuarios/edit/#{valor._id}", class="btn btn-warning btn-xs faa-parent animated-hover margin-l" data-toggle="tooltip" data-placement="auto" title="Alterar")
-                                        i(class="fa fa-pencil fa-fw faa-wrench faa-slow")
-    else
-        p Nenhum registro encontrado!
-                            i(class="fa fa-pencil fa-fw faa-wrench faa-slow")
+                            th ID
+                            th Nome
+                            th Sobronome
+                            th E-mail
+                            th Data de Cadastro
+                            th Ações
+                    tbody
+                        each valor in lista
+                            tr
+                                td #{valor._id}
+                                td #{valor.nome}
+                                td #{valor.sobrenome}
+                                td #{valor.email}
+                                td #{moment(valor.data_cadastro).format('DD/MM/YYYY HH:mm:ss')}
+                                td 
+                                    a(href="/usuarios/edit/#{valor._id}", class="btn btn-info btn-xs faa-parent animated-hover" data-toggle="tooltip" data-placement="auto" title="Vizualizar")
+                                        i(class="fa fa-search fa-fw faa-wrench faa-slow")
+                                    //
+                                        a(href="/usuarios/edit/#{valor._id}", class="btn btn-warning btn-xs faa-parent animated-hover margin-l" data-toggle="tooltip" data-placement="auto" title="Alterar")
+                                            i(class="fa fa-pencil fa-fw faa-wrench faa-slow")
+        else
+            p Nenhum registro encontrado!
+                                i(class="fa fa-pencil fa-fw faa-wrench faa-slow")
 block script
     if messages.info
         script.

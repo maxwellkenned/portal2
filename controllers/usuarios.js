@@ -107,58 +107,43 @@ module.exports = function (app) {
             }
         },
         limparDir: function (req, res) {
-        let pasta = 'public/uploads/';
-        let user = app.get('user');
-        let files = [];
-        let files2 = [];
-        let curPath = '';
-        let curPath2 = '';
-        let excluir = true;
-        let excluir2 = true;
-        files = fs.readdirSync(pasta);
-        files.forEach(function(file){
-            console.log('log0: '+file);
-            Arquivo.findOne({'filename': file}, function (err, dados){
-                if(dados){
-                    console.log('log1: '+dados.path);
-                    if (file == dados.filename){
-                        excluir = false;
-                    }
-                }
-                if(excluir){
-                    curPath = pasta + '/' + file;
-                    if(fs.lstatSync(curPath).isDirectory()) {
-                        files2 = fs.readdirSync(curPath);
-                        files2.forEach(function(file2){
-                            console.log('log1: '+file2);
-                            Arquivo.findOne({'filename': file2}, function (err, dados2){
-                                if(dados2){
-                                    console.log('log1: '+dados2.path);
-                                    if (file2 == dados2.filename){
-                                        excluir2 = false;
-                                    }
-                                }
-                                if(excluir2){
-                                    curPath2 = curPath + '/' + file2;
-                                    if(fs.lstatSync(curPath2).isDirectory()) {
-                                        deleteDirR(curPath2, function (err){
-                                        });
-                                    } else {
-                                        fs.unlinkSync(curPath2);
-                                    }
+            let pasta = 'public/uploads/';
+            let user = app.get('user');
+            let files = [];
+            let files2 = [];
+            let curPath = '';
+            let curPath2 = '';
+            let excluir = true;
+            files = fs.readdirSync(pasta);
+            files.forEach(function(file){
+                curPath = pasta + file;
+                console.log('log1: curPath '+curPath);
+                if(fs.lstatSync(curPath).isDirectory()) {
+                    files2 = fs.readdirSync(curPath);
+                    console.log('log1.5: files2 '+files2);
+                    files2.forEach(function(file2){
+                        Arquivo.findOne({'filename': file2, 'destination': curPath+'/'}, function (err, dados){
+                            if(dados){
+                                console.log('Arquivo cadastrado: '+ dados);
+                            }else if(!dados){
+                                curPath2 = curPath + '/' + file2;
+                                console.log('log3: curPath2 '+curPath2);
+                                if(fs.existsSync(curPath2)){
+                                if(fs.lstatSync(curPath2).isDirectory()) {
+                                    deleteDirR(curPath2, function (err){});
                                 } else {
-                                    console.log('Arquivo cadastrado!');
+                                    fs.unlinkSync(curPath2);
                                 }
-                            });
+                                }
+                            } else {
+                                console.log('Arquivo cadastrado!');
+                            }
                         });
-                    } else {
-                        fs.unlinkSync(curPath);
-                    }
+                    });
                 } else {
-                    console.log('Usuário cadastrado!');
+                    fs.unlinkSync(curPath);
                 }
             });
-        });
             req.flash('info','Diretórios limpos com sucesso!');
             res.redirect('/usuarios');
         },
