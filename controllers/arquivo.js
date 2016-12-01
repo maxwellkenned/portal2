@@ -76,6 +76,7 @@ module.exports = function (app) {
             let user = app.get('user');
             let dir = 'public/uploads/'+user._id+'/';
             var data = fs.readdirSync(dir);
+            console.log('DATA0: '+data);
             var itens = {};
             function read(){
                 return new Promise(function(fulfill, reject){
@@ -87,22 +88,10 @@ module.exports = function (app) {
                         }
                     }).sort({'ext': 1, 'data_upload': -1});
                 });
-            };
-            console.log('DATA: '+util.inspect(data));
-            console.log('DIR: '+util.inspect(dir));
-            console.log('READ: '+util.inspect(read()));
-            
+            };            
             read()
             .then(function(file){
-               _.forEach(data, function(value){
-                   _.remove(file, function(o){
-                        o.filename != value;
-                   });
-                });
-
-            console.log('DATA2: '+file);
-
-            res.json(file);
+                res.json(file);
             });
         },
         showPasta: function (req, res) {
