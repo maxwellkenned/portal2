@@ -6,7 +6,7 @@ module.exports = function (app) {
     
     app.post('/upload', autenticar, arquivo.upload);
     app.get('/uploads/:file', autenticar, arquivo.view);
-    app.get('/show', arquivo.show);
+    app.get('/show', autenticar, arquivo.show);
     app.get('/download/:file(*)', autenticar, arquivo.download);
     app.post('/pasta/criar', autenticar, arquivo.criarPasta);
     app.get('/file/remove/:id', autenticar, arquivo.remove);

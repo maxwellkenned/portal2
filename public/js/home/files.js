@@ -52,12 +52,30 @@ $('#criar-pasta').submit(function(){
     criarPasta();
     return false;
 });
-
+function excluirItem(data){
+    var url = $(data).attr('data-url');
+    $.confirm({
+    title: 'ATENÇÃO!',
+    content: 'Tem certeza que deseja excluir esse arquivo?',
+    buttons: {
+        Excluir: {
+            btnClass: 'btn-red',
+            action: function () {
+            $.get(url, function(){
+                location.reload();
+            });
+        }
+        },
+        cancelar: function () {
+            
+        }
+    }
+    });
+};
 function criarPasta(){
     var nomePasta = $('#nomePasta').val();
     $.post('/pasta/criar', {nomePasta: nomePasta});
     $('#modal-criarPasta').modal('hide');
-    populateTable('/show');
     populateTable('/show');
     $.notify('Pasta criada com sucesso', 'success');
 };
@@ -72,7 +90,7 @@ function populateTable(pasta){
     let tableContent = '';
     $.get(pasta, function (data) {
         if(!data){
-            $('#div-arq').hide();
+            $('#table').hide();
         }else {
         for(var item in data){
             let nome = data[item].filename;
@@ -98,8 +116,8 @@ function populateTable(pasta){
             tableContent += '<td>'+dataFormatada+'</td>';
             tableContent += '<td>'+tamanho+'</td>';
             tableContent += '<td>'+
-            '<a href="/file/remove/'+data[item]._id+'" class="btn btn-outline-danger btn-xs faa-parent animated-hover" onClick="excluirItem()" data-toggle="tooltip" data-placement="auto" title="Excluir"><i class="fa fa-trash-o fa-fw faa-wrench faa-slow" /></a>'+
-            '<a href="#" class="btn btn-outline-primary btn-xs faa-parent animated-hover" data-toggle="modal" data-target=".share-item" data-toggle="tooltip" data-placement="auto" title="Compartilhar"><i class="fa fa-share fa-fw faa-wrench faa-slow" /></a>'
+            '<button type="button" data-url="/file/remove/'+data[item]._id+'" class="btn btn-danger btn-xs faa-parent animated-hover" onClick="excluirItem(this)" data-toggle="tooltip" data-placement="auto" title="Excluir"><i class="fa fa-trash-o fa-fw fa-2x faa-wrench faa-slow" /></button>'+
+            '<a href="#" class="btn btn-primary btn-xs faa-parent animated-hover" data-toggle="modal" data-target=".share-item" data-toggle="tooltip" data-placement="auto" title="Compartilhar"><i class="fa fa-share fa-fw fa-2x faa-wrench faa-slow" /></a>'
             +'</td>';
             tableContent += '</tr>';
         } 

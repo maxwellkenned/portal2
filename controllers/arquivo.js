@@ -76,13 +76,16 @@ module.exports = function (app) {
             let user = app.get('user');
             let dir = 'public/uploads/'+user._id+'/';
             var data = fs.readdirSync(dir);
-            var itens = {}, item = {};
+            var itens = {};
             function read(){
                 return new Promise(function(fulfill, reject){
-                    data.forEach(function(dados){
-                    fulfill(Arquivo.find({'destination': dir}, function(err, data2){ return data2;}).sort({'ext': 1, 'data_upload': -1}));
-                    });
-                    if(!itens) reject();
+                    Arquivo.find({'destination': dir}, function(err, data2){
+                        if(err){
+                            reject(err);
+                        }else{
+                            fulfill(data2);
+                        }
+                    }).sort({'ext': 1, 'data_upload': -1});
                 });
             };
             console.log('DATA: '+util.inspect(data));
@@ -91,7 +94,14 @@ module.exports = function (app) {
             
             read()
             .then(function(file){
-            console.log('DATA3: '+util.inspect(_.filter(file)));
+               _.forEach(data, function(value){
+                   _.remove(file, function(o){
+                        o.filename != value;
+                   });
+                });
+
+            console.log('DATA2: '+file);
+
             res.json(file);
             });
         },
@@ -259,7 +269,7 @@ module.exports = function (app) {
                     }
                 })
                 .then(function(){
-                    req.flash('info', 'pasta criada com sucesso');
+                    req.flash('info', 'Excluido com sucesso');
                     req.redirect('/home');
                 });
         }

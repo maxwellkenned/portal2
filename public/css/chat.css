@@ -1,6 +1,7 @@
 .chat {
     background-color: #444;
-    background: url('../images/bg.jpg');  
+    background: url('../images/bg.jpg');
+    min-height: 538px;
 }
 .chat form > div, #mensagem {
     padding-left: 0px;

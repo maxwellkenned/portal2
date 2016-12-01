@@ -21,7 +21,12 @@ footer {
 a {
   color: #00B7FF;
 }
-
+#index{
+    min-height: 538px;
+}
+.content-index{
+    height: 100%;
+}
 .chat{
     
 }
@@ -64,6 +69,9 @@ body {
 margin-bottom: 10px;
 }
 @media (min-width: 769px){
+#index{
+    min-height: 538px;
+}
 #page-login{
     padding-right:80px;
     background-image: url('../images/bg.jpg');
@@ -195,8 +203,7 @@ form.chat button {
     margin: 0; 
     padding: 0; 
     overflow-y:auto;
-    height:340px; 
-    max-height:340px; 
+    height: 438px; 
 }
 /*#conversa li { padding: 1px 10px;}
 */#messages li:nth-child(odd) {  }

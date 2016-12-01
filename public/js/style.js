@@ -16,16 +16,14 @@ function sizeOfThings(){
       formChat = $('#form-chat').outerHeight();
   var chatContent = chatHeight - menuChat - formChat;
 
-  //$('body').css('max-height', windowHeight);
+  //$('body').css('max-height', windowHeight-footerHeight);
+  //$('body').css('height', windowHeight-footerHeight);
   //$('.container-fluid').css('min-height', content);
-  $('.chat').css('min-height', content);
-  $('.chat').css('height', content);
-  $('.chat-content').css('height', chatHeight);
-  $('.chat-content').css('max-height', chatHeight);
-  console.log('chatHeight: '+chatHeight);
-  console.log('menuChat: '+menuChat);
-  console.log('formChat: '+formChat);
-  console.log('chatContent: '+chatContent);
+  //$('.chat').css('min-height', content);
+  //$('.chat').css('height', content);
+  //$('.chat-content').css('height', chatHeight);
+  //$('.chat-content').css('max-height', chatHeight);
+  
 };
 
 $(document).ready(function(){
