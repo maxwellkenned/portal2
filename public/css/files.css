@@ -15,34 +15,26 @@
 }
 #tr-item td.ext_directory {
   background: url(../images/images/directory.png) no-repeat;
-  width: 45px;
-  background-size: 60% 80%;
-  background-position: 25%;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.directory-locked {
   background: url(../images/images/directory-lock.png)  no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
-  width: 45px;
-  background-size: 60% 80%;
-  background-position: 25%;
+
 }
 #tr-item td.expanded {
   background: url(../images/images/folder_open.png) no-repeat;
-  width: 45px;
-  background-size: 60% 80%;
-  background-position: 25%;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.file {
   background: url(../images/images/file.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
@@ -51,7 +43,7 @@
 }
 #tr-item td.wait {
   background: url(../images/images/spinner.gif) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
@@ -60,367 +52,367 @@
 }
 #tr-item td.ext_3gp {
   background: url(../images/images/film.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_afp {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_afpa {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_asp {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_aspx {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_avi {
   background: url(../images/images/film.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_bat {
   background: url(../images/images/application.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_bmp {
   background: url(../images/images/picture.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_c {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_cfm {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_cgi {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_com {
   background: url(../images/images/application.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_cpp {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_css {
   background: url(../images/images/css.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_doc {
   background: url(../images/images/doc.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_docx {
   background: url(../images/images/doc.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_exe {
   background: url(../images/images/application.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_gif {
   background: url(../images/images/picture.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_fla {
   background: url(../images/images/flash.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_h {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_htm {
   background: url(../images/images/html.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_html {
   background: url(../images/images/html.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_jar {
   background: url(../images/images/java.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_jpg {
   background: url(../images/images/picture.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_jpeg {
   background: url(../images/images/picture.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_js {
   background: url(../images/images/script.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_lasso {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_log {
   background: url(../images/images/txt.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_m4p {
   background: url(../images/images/music.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_mov {
   background: url(../images/images/film.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_mp3 {
   background: url(../images/images/music.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_mp4 {
   background: url(../images/images/film.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_mpg {
   background: url(../images/images/film.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_mpeg {
   background: url(../images/images/film.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_ogg {
   background: url(../images/images/music.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_ogv {
   background: url(../images/images/film.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_pcx {
   background: url(../images/images/picture.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_pdf {
   background: url(../images/images/pdf.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_php {
   background: url(../images/images/php.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_png {
   background: url(../images/images/picture.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_ppt {
   background: url(../images/images/ppt.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_psd {
   background: url(../images/images/psd.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_pl {
   background: url(../images/images/script.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_py {
   background: url(../images/images/script.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_rb {
   background: url(../images/images/ruby.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_rbx {
   background: url(../images/images/ruby.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_rhtml {
   background: url(../images/images/ruby.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_rpm {
   background: url(../images/images/linux.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_ruby {
   background: url(../images/images/ruby.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_sql {
   background: url(../images/images/db.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_swf {
   background: url(../images/images/flash.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_tif {
   background: url(../images/images/picture.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_tiff {
   background: url(../images/images/picture.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_txt {
   background: url(../images/images/txt.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_vb {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_wav {
   background: url(../images/images/music.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_webm {
   background: url(../images/images/film.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_wmv {
   background: url(../images/images/film.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_xls {
   background: url(../images/images/xls.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_xml {
   background: url(../images/images/code.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }
 #tr-item td.ext_zip {
   background: url(../images/images/zip.png) no-repeat;
-  width: 45px;
+  min-width: 35px;
   background-size: 60% 80%;
   background-position: 25%;
 }

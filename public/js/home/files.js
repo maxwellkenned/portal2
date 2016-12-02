@@ -1,5 +1,6 @@
 $(function(){
-    populateTable('/show');
+    var pathname = window.location.pathname;
+    populateTable(pathname);
     
     var input = document.getElementById("input-file");
     $('#input-file').change(function(){
@@ -11,9 +12,9 @@ $(function(){
         $('#form-upload').append($('<span id="file_'+i+'" class="col-md-2 col-sm-2 col-xs-2">'+filesize(file[i].size,{round: 0})+'</span>'));
       });
     });
-
+    var dest = pathname.replace('/p','');
     $("#fileuploader").uploadFile({
-    url:"/upload",
+    url:"/upload"+dest,
     fileName:"file",
     autoSubmit: true,
     showDone: false,
@@ -52,6 +53,14 @@ $('#criar-pasta').submit(function(){
     criarPasta();
     return false;
 });
+// function showPasta(data){
+//     var pathname = $(data).attr('data-url');
+//     // $("#table-body").remove();
+//     // location.reload(pathname, function(){
+//     //    populateTable(pathname); 
+//     // });
+    
+// };
 function excluirItem(data){
     var url = $(data).attr('data-url');
     $.confirm({
@@ -74,20 +83,27 @@ function excluirItem(data){
 };
 function criarPasta(){
     var nomePasta = $('#nomePasta').val();
-    $.post('/pasta/criar', {nomePasta: nomePasta});
+    var url = window.location.pathname;
+    var pathname;
+    if(url == '/home' || url == 'home' ){
+        pathname = '/';
+    }else{
+        pathname = url.replace('/p','');
+    }
+    
+    $.post('/pasta/criar', {nomePasta: nomePasta, pathname: pathname});
     $('#modal-criarPasta').modal('hide');
-    populateTable('/show');
+    location.reload();
     $.notify('Pasta criada com sucesso', 'success');
 };
 
-
-function showPasta(nome){
-    let pasta = "/p/"+nome;
-    populateTable(pasta);
-};
-
-function populateTable(pasta){
+function populateTable(pathname){
     let tableContent = '';
+    var pasta = '/show/p/show';
+    if(pathname != '/home'){
+        pasta = '/show'+pathname;
+    }
+
     $.get(pasta, function (data) {
         if(!data){
             $('#table').hide();
@@ -98,27 +114,34 @@ function populateTable(pasta){
             let tipo = data[item].ext;
             let icon;
             let tamanho;
+            let curl;
                 if(data[item].ext == '/'){
                     tamanho = '';
                     nome += '/'; 
                     tipo = 'directory';
                     icon = 'folder';
+                    curl = '/p/'+nome;
                 } else {
                     tamanho = filesize(data[item].size,{round:0});
                     icon = 'file';
+                    curl = '/download/'+nome;
                 }
             
             //tableContent += '<tr id="tr-id-'+i+'" class="tr-class-'+i+'" data-title="bootstrap table">';
             tableContent += '<tr id="tr-item">';
             tableContent += '<td class="ext_'+tipo+'"></td>'
-            tableContent += '<td><a href="'+/download/+nome+'">'+nome+'</a></td>';
-            tableContent += '<td>'+tipo+'</td>';
+            if(tipo == 'directory'){
+                tableContent += '<td><a onClick="showPasta(this)" class="btn btn-link" data-url="'+curl+'" href="'+curl+'">'+nome+'</a></td>';
+            }else{
+                tableContent += '<td><a href="'+curl+'">'+nome+'</a></td>';
+            }
+            // tableContent += '<td>'+tipo+'</td>';
             tableContent += '<td>'+dataFormatada+'</td>';
             tableContent += '<td>'+tamanho+'</td>';
             tableContent += '<td>'+
             '<button type="button" data-url="/file/remove/'+data[item]._id+'" class="btn btn-danger btn-xs faa-parent animated-hover" onClick="excluirItem(this)" data-toggle="tooltip" data-placement="auto" title="Excluir"><i class="fa fa-trash-o fa-fw fa-2x faa-wrench faa-slow" /></button>'+
-            '<a href="#" class="btn btn-primary btn-xs faa-parent animated-hover" data-toggle="modal" data-target=".share-item" data-toggle="tooltip" data-placement="auto" title="Compartilhar"><i class="fa fa-share fa-fw fa-2x faa-wrench faa-slow" /></a>'
-            +'</td>';
+            // '<a href="#" class="btn btn-primary btn-xs faa-parent animated-hover" data-toggle="modal" data-target=".share-item" data-toggle="tooltip" data-placement="auto" title="Compartilhar"><i class="fa fa-share fa-fw fa-2x faa-wrench faa-slow" /></a>'
+            '</td>';
             tableContent += '</tr>';
         } 
             $('#download table tbody').html(tableContent);

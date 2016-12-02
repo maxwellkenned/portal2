@@ -19,11 +19,18 @@ module.exports = function (app) {
     });
     let upload = multer({storage: storage}).array('file');
     let Arquivo = app.models.arquivo;
-    let Helpers = app.controllers.helpers;
+    let Helpers = app.controllers.helpers;    
+    let chatCtrl = app.controllers.chatInit;
     
     let ArquivoController = {
         upload: function (req, res) {
             let user = app.get('user');
+            let dest = '/';
+            if(req.params.pasta == '/home' || req.params.pasta == 'home'){
+                dest = '';
+            } else{
+                dest = req.params.pasta;
+            }
             upload(req, res, function(err){
                 let arquivos = req.files;
                 arquivos.forEach(function(data){
@@ -32,12 +39,12 @@ module.exports = function (app) {
                     model.originalname = data.originalname;
                     model.encoding = data.encoding;
                     model.mimetype = data.mimetype;
-                    model.destination = data.destination;
+                    model.destination = data.destination+dest;
                     model.filename = data.filename;
-                    model.path = data.path;
+                    model.path = data.destination+dest+data.filename;
                     model.ext = data.originalname.substr(data.originalname.lastIndexOf('.')+1);
                     model.size = data.size;
-                    Arquivo.findOne({'_idUsuario': model._idUsuario,'filename': model.filename, 'path': model.path},function (err, dados){
+                    Arquivo.findOne({'_idUsuario': model._idUsuario,'filename': model.filename, 'destination': data.destination+dest},function (err, dados){
                         if(dados){
                             model.update({upsert: true}, function(err){
                                 if(err){
@@ -73,47 +80,32 @@ module.exports = function (app) {
             res.end(img, 'binary');
         },
         show: function (req, res) {
-            let user = app.get('user');
-            let dir = 'public/uploads/'+user._id+'/';
-            var data = fs.readdirSync(dir);
-            console.log('DATA0: '+data);
-            var itens = {};
-            function read(){
-                return new Promise(function(fulfill, reject){
-                    Arquivo.find({'destination': dir}, function(err, data2){
-                        if(err){
-                            reject(err);
-                        }else{
-                            fulfill(data2);
-                        }
-                    }).sort({'ext': 1, 'data_upload': -1});
-                });
-            };            
-            read()
-            .then(function(file){
-                res.json(file);
-            });
+            chatCtrl;
+            res.render('home/index');
         },
         showPasta: function (req, res) {
             let user = app.get('user');
-            let dir = 'public/uploads/'+ user._id +'/'+ req.params.pasta +'/';
+            let dir = 'public/uploads/'+user._id+'/';
+            let pathname = req.params.pasta;
+            if(req.params.pasta != 'show'){
+                dir += pathname;
+            }
             let dados = new Arquivo();
-            let itens;
-            if (fs.lstatSync(dir).isDirectory()){
-                itens = fs.readdirSync(dir);
-                itens.forEach(function(item){
-                    Arquivo.findOne({'destination': dir, 'filename': item}, function (err, data) {
-                    if(err) console.log('Erro: '+err);
-                    dados.filename = data.filename;
-                    dados.data_upload = data.data_upload;
-                    dados.ext = data.ext;
-                    dados.size = data.size;
+            function readPasta(){
+                return new Promise(function(fulfill, reject){
+                    Arquivo.find({'destination': dir}, function (err, data) {
+                        if(err){
+                            reject(err);
+                        }else{
+                            fulfill(data);
+                        }
                     }).sort({'ext': 1, 'data_upload': -1});
                 });
+            };
+            readPasta()
+            .then(function(dados){
                 res.json(dados);
-            } else {
-                this.download(req, res);
-            }
+            });
                 
         },
         showPastas: function(req, res) {
@@ -186,16 +178,23 @@ module.exports = function (app) {
         criarPasta: function(req, res){
             let nomePasta = req.body.nomePasta;
             let user = app.get('user');
-            let pasta = 'public/uploads/'+user._id+'/'+nomePasta+'/';
+            let pathname = '/';
+            if(!(req.body.pathname == '/home' || req.body.pathname == 'home')){
+                pathname = req.body.pathname;
+            }
+            console.log("URL: "+pathname);
+            let dir = 'public/uploads/'+user._id+pathname;
+            console.log('DIR: '+dir);
+            let pasta = dir+nomePasta+'/';
             let model = new Arquivo();
                 model._idUsuario = user._id;
                 model.originalname = nomePasta;
-                model.destination = pasta;
+                model.destination = dir;
                 model.filename = nomePasta;
                 model.mimetype = 'folder';
                 model.path = pasta;
                 model.ext = '/';
-                Arquivo.findOne({'_idUsuario': model._idUsuario,'filename': model.filename, 'path': model.path},function (err, dados){
+                Arquivo.findOne({'_idUsuario': model._idUsuario,'filename': model.filename, 'destination': model.destination},function (err, dados){
                     if(dados){
                         model.update({upsert: true}, function(err){
                             if(err){
