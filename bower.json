@@ -20,6 +20,7 @@
     "gasparesganga-jquery-loading-overlay": "^1.5.1",
     "bootswatch": "^3.3.7",
     "jqueryfiletree": "^2.1.4",
-    "jquery-confirm2": "craftpip/jquery-confirm#^3.0.1"
+    "jquery-confirm2": "craftpip/jquery-confirm#^3.0.1",
+    "bootstrap": "^3.3.7"
   }
 }

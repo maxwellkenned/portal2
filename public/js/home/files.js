@@ -44,23 +44,17 @@ $('#form-upload').submit(function(){
     }
 });
 
-$('#criar-pasta').submit(function(){
+$('#modal-criarPasta #criar-pasta').submit(function(){
     var nomePasta = $('#nomePasta').val();
     if(!nomePasta){
         $('#nomePasta').notify('Informe o nome da pasta', 'error');
         return false;
-    }
+    }else{
     criarPasta();
+    }
     return false;
 });
-// function showPasta(data){
-//     var pathname = $(data).attr('data-url');
-//     // $("#table-body").remove();
-//     // location.reload(pathname, function(){
-//     //    populateTable(pathname); 
-//     // });
-    
-// };
+
 function excluirItem(data){
     var url = $(data).attr('data-url');
     $.confirm({
@@ -91,10 +85,13 @@ function criarPasta(){
         pathname = url.replace('/p','');
     }
     
-    $.post('/pasta/criar', {nomePasta: nomePasta, pathname: pathname});
-    $('#modal-criarPasta').modal('hide');
-    location.reload();
-    $.notify('Pasta criada com sucesso', 'success');
+    $.post('/pasta/criar', {nomePasta: nomePasta, pathname: pathname})
+    .done(function(data){
+        location.reload();
+        $('#modal-criarPasta').modal('hide');
+        $.notify('Pasta criada com sucesso', 'success');
+    });
+    
 };
 
 function populateTable(pathname){
@@ -138,10 +135,7 @@ function populateTable(pathname){
             // tableContent += '<td>'+tipo+'</td>';
             tableContent += '<td>'+dataFormatada+'</td>';
             tableContent += '<td>'+tamanho+'</td>';
-            tableContent += '<td>'+
-            '<button type="button" data-url="/file/remove/'+data[item]._id+'" class="btn btn-danger btn-xs faa-parent animated-hover" onClick="excluirItem(this)" data-toggle="tooltip" data-placement="auto" title="Excluir"><i class="fa fa-trash-o fa-fw fa-2x faa-wrench faa-slow" /></button>'+
-            // '<a href="#" class="btn btn-primary btn-xs faa-parent animated-hover" data-toggle="modal" data-target=".share-item" data-toggle="tooltip" data-placement="auto" title="Compartilhar"><i class="fa fa-share fa-fw fa-2x faa-wrench faa-slow" /></a>'
-            '</td>';
+            tableContent += '<td><button type="button" data-url="/file/remove/'+data[item]._id+'" class="btn btn-danger btn-xs faa-parent animated-hover" onClick="excluirItem(this)" data-toggle="tooltip" data-placement="auto" title="Excluir"><i class="fa fa-trash-o fa-fw fa-2x faa-wrench faa-slow" /></button></td>';
             tableContent += '</tr>';
         } 
             $('#download table tbody').html(tableContent);

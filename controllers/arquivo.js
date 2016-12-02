@@ -178,11 +178,13 @@ module.exports = function (app) {
         criarPasta: function(req, res){
             let nomePasta = req.body.nomePasta;
             let user = app.get('user');
-            let pathname = '/';
-            if(!(req.body.pathname == '/home' || req.body.pathname == 'home')){
+            let pathname;
+            if(req.body.pathname == '/home' || req.body.pathname == 'home'){
+                pathname = '/';
+            }else{
                 pathname = req.body.pathname;
             }
-            console.log("URL: "+pathname);
+            console.log("@@@URL: "+pathname);
             let dir = 'public/uploads/'+user._id+pathname;
             console.log('DIR: '+dir);
             let pasta = dir+nomePasta+'/';
@@ -211,7 +213,7 @@ module.exports = function (app) {
                                     fs.mkdir(pasta, function(args){
                                     });
                                 }
-                                req.flash('info', 'pasta criada com sucesso');
+                                res.end();
                             }
                         });
                     }

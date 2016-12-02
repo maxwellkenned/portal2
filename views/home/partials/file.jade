@@ -33,17 +33,3 @@ div(id="page-file")
                   th Tamanho
                   th Ações
               tbody(id="table-body")
-  div(class="modal fade share-item" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true")
-          div(class="modal-dialog modal-sm" role="document")
-            div(class="modal-content")
-              div(class="modal-header")
-                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                  span(aria-hidden="true") &times;
-                h4(class="modal-title" id="exampleModalLabel") Criar pasta
-              div(class="modal-body")
-                form(id='criar-pasta', action="/pasta/criar" method='post')
-                  div(class="form-group")
-                    label(for="nomePasta") Nome
-                    input(type="text", class="form-control", id="nomePasta", name="nomePasta", placeholder="Digite seu nome", required autofocus)
-                  div(class="form-group")
-                    button(id="btn-criarPasta" onClick="criarPasta()" type="button" class="btn btn-outline-success") Criar

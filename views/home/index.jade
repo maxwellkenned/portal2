@@ -1,12 +1,6 @@
 extends ../layout
 
 block head
-  link(rel='stylesheet', href='/css/chat.css')
-  link(rel='stylesheet', href='/vendor/bootstrap-table/dist/bootstrap-table.min.css')
-  link(rel='stylesheet', href='/vendor/jqueryfiletree/dist/jQueryFileTree.min.css')
-  link(rel='stylesheet', href='/vendor/jquery-confirm2/dist/jquery-confirm.min.css')
-  link(rel='stylesheet', href='/css/files.css')
-  link(rel='stylesheet', href='/css/uploadfile.css')
 
 block content
   div(id="index" style="margin-top: 25px;" class="container-fluid")
@@ -19,11 +13,8 @@ block content
     
 block script
   script(type='text/javascript', src="https://cdn.socket.io/socket.io-1.2.0.js")
-  script(type='text/javascript', src="/js/filesize.min.js")
-  script(type='text/javascript', src="/js/jquery-dateFormat.min.js")
-  script(type='text/javascript', src='/js/jquery.uploadfile.min.js')
   script(type='text/javascript', src="/js/home/files.js")
-  script(type='text/javascript', src="/js/home/tree.js")
+  //script(type='text/javascript', src="/js/home/tree.js")
   script(type='text/javascript', src="/js/home/contatos.js")
   script(type='text/javascript', src="/js/home/chat.js")
   script.
